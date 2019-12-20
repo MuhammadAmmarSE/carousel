@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 
-import SignIn from './SignIn.jsx';
-import SignUp from './SignUp.jsx';
+import SignIn from './screen/SignIn/SignIn';
+import SignUp from './screen/SignUp/SignUp';
 
-import history from './history';
+import history from './helper/history';
+
+import {  Router , Route } from 'react-router-dom'
 
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {  } 
     }
     render() { 
         return ( 
-        <div>
-            <Router history={history}>
+        
+        <Router history={history}>
                 <div>
-                <Route path="/" component={SignIn} />
-                <Route exact path="/SignIn" component={SignIn} />
-                <Route exact path="/SignUp" component={SignUp} />
+                    {/* App bar here */} {/*<Route path="/" component={Appbar} />*/}  {/* Default component - check auth here */}
+                    <Route exact path="/SignIn" component={SignIn} />
+                    <Route exact path="/SignUp" component={SignUp} />
                 </div>
-            </Router>
-        </div>  );
+        </Router>
+      
+    );
     }
 }
  
