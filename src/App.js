@@ -19,7 +19,7 @@ class App extends Component {
         <Router history={history}>
                 <div>
                     {/* App bar here */} {/*<Route path="/" component={Appbar} />*/}  {/* Default component - check auth here */}
-                    <Route exact path="/SignIn" component={SignIn} />
+                    <Route exact path="/" component={SignIn} />
                     <Route exact path="/SignUp" component={SignUp} />
                 </div>
         </Router>

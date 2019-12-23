@@ -63,13 +63,16 @@ class SignIn extends Component {
 
   GoSignUp()
   {
-    //signup
+    this
+    .props
+    .history
+    .push('/SignUp');
   }
 
   SignIn()
   {
     const {email, password} = this.state;
-    
+    console.log(email,password,'user email')
     if(email==="")
     {
         this.setState({error1:true,errorMessage:'Email cannot be empty'})
@@ -103,6 +106,7 @@ class SignIn extends Component {
               .props
               .history
               .push('/StartPage')
+              console.log('Welcome')
           }
 
         })
@@ -251,12 +255,13 @@ render() {
                 fontSize: 14,
                 color: '#3f51b5',
                 fontWeight: '600',
-                textAlign: 'center'
+                textAlign: 'center',
+                 cursor: 'pointer'
               }}>
                 Sign Up ?
               </Typography>
-            </Toolbar> < /form>
-        </div > </Container> < /div>
+            </Toolbar> </form>
+        </div > </Container> </div>
         </div>
   );
 }
