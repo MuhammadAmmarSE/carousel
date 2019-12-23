@@ -72,18 +72,15 @@ class SignIn extends Component {
   SignIn()
   {
     const {email, password} = this.state;
-    console.log(email,password,'user email')
     if(email==="")
     {
         this.setState({error1:true,errorMessage:'Email cannot be empty'})
-        console.log('email could not be empty')
         return;
     }
 
     else if(password==="")
     {
         this.setState({error2:true,errorMessage:'Password cannot be empty'})
-        console.log('password could not be empty')
         return;
     }
 
@@ -92,7 +89,6 @@ class SignIn extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
-          console.log("user=======>", user)
           console.log(user.user.emailVerified)
           if (user.user.emailVerified === false) 
           {
@@ -106,7 +102,6 @@ class SignIn extends Component {
               .props
               .history
               .push('/StartPage')
-              console.log('Welcome')
           }
 
         })

@@ -15,10 +15,7 @@ import Container from '@material-ui/core/Container';
 import Logo from '../../Assets/loader.gif';
 import firebase from '../../helper/firebase'
 import Swal from 'sweetalert2';
-
 import './SignUp.css'
-
-
 
 const styles = theme => ({
     '@global': {
@@ -54,13 +51,6 @@ const styles = theme => ({
   });
 
 
-
-
-
-
-
-
-
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -84,57 +74,30 @@ class SignUp extends Component {
     async signup() {
         ////////////
         const { email, password, Firstname, Lastname } = this.state;
-     if ( Firstname == '') {
-      this.setState({
-        fnames:true
-      },()=>{
-        setTimeout(() => {
-            this.setState({fnames:false,text:'Coudnot recognize  your email'})
-         }, 4000);
-      })
+     if ( Firstname === '') {
+      this.setState({fnames:true})
+      return;
           }
           else if ( Lastname == '') {
-            this.setState({
-              lastNames:true
-            },()=>{
-                setTimeout(() => {
-                  this.setState({lastNames:false,text:'Coudnot recognize  your email'})
-               }, 4000);
-            })
+            this.setState({lastNames:true})
+            return;
                 }
     else if (email == '') {
-this.setState({
-  emails:true
-},()=>{
-    setTimeout(() => {
-      this.setState({emails:false,text:'Coudnot recognize  your email'})
-      console.log('email empty')
-   }, 4000);
-})
+        this.setState({emails:true})
+        return;
     }
     else if ( password == '') {
-      this.setState({
-        passwords:true
-      },()=>{
-        setTimeout(() => {
-            this.setState({passwords:false,text:'Coudnot recognize  your email'})
-         }, 4000);
-      })
+        this.setState({passwords:true})
+        return;
           }
   
   else if (email !== '', password !== '', Firstname !== '', Lastname !== '') {
-    console.log(email,password,Firstname,Lastname)
 
         firebase.auth().createUserWithEmailAndPassword(email, password).then((user)=>{
-            console.log("user=================>",user)
-            // this.props.history.push('/StartPage')
         })
         .then(() => {
-        // var authValues = authState.auth().sendEmailVerification();
-        //  authState.auth().sendEmailVerification();
         var user=firebase.auth().currentUser;
         user.sendEmailVerification().then((result) =>{
-            console.log("sent========>")
         
         }).catch((error)=>{
             console.log("error",error)
@@ -147,7 +110,6 @@ this.setState({
                 Firstname,
                 Lastname
             }
-           // firebase.database().ref('UserInfo/').push(userobject);
            var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
            console.log(userkey,'authValues')
            this
@@ -177,9 +139,6 @@ this.setState({
     render() { 
         const { classes } = this.props;
         return ( 
-        // <div>
-        //     <div id="SignUpScreenDiv">SignUp Page</div>
-        // </div>
         <div>{this.state.Logo ? <img src={Logo} /> :
         <div className={classes.root}>
           <AppBar position="static">
@@ -212,7 +171,10 @@ this.setState({
                       id="firstName"
                       label="First Name"
                       autoFocus
-                      onChange={(e) => { this.setState({ Firstname: e.target.value }) }}
+                      onChange={(e) => { 
+                        this.setState({fnames:false,Firstname: e.target.value})
+                          
+                         }}
                     />
                        {
             this.state.fnames?
@@ -229,8 +191,9 @@ this.setState({
                       label="Last Name"
                       name="lastName"
                       autoComplete="lname"
-                      onChange={(e) => { this.setState({ Lastname: e.target.value }) }}
-
+                      onChange={(e) => { 
+                        this.setState({lastNames:false,Lastname: e.target.value})
+                        }}
                     />
                                 {
             this.state.lastNames?
@@ -247,7 +210,7 @@ this.setState({
                       label="Email Address"
                       name="email"
                       autoComplete="email"
-                      onChange={(e) => { this.setState({ email: e.target.value }) }}
+                      onChange={(e) => {this.setState({emails:false,email: e.target.value}) }}
                     />
                                           {
             this.state.emails?
@@ -265,7 +228,7 @@ this.setState({
                       type="password"
                       id="password"
                       autoComplete="current-password"
-                      onChange={(e) => { this.setState({ password: e.target.value }) }}
+                      onChange={(e) => {this.setState({passwords:false,password: e.target.value}) }}
                     />
                                                         {
             this.state.passwords?
