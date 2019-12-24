@@ -14,9 +14,10 @@ class UserView extends Component {
     }
     componentDidMount()
     {
-      /* if(user in redux)
-           {
-             if(user==verified)
+      /* var user = firebase.auth().currentUser;
+      if (user) {
+
+         if(user==verified)
              {
                do nothing
              }
@@ -27,8 +28,13 @@ class UserView extends Component {
                  move to verification page
                }
              }
+      }
 
-           }
+      
+      else {
+        No user is signed in.
+      }
+      
            
            */
     }
