@@ -1,0 +1,20 @@
+#VerificationPaper
+{
+    
+    padding:10px;
+    position: relative;;
+    top:20px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    max-width:700px;
+    background: white;
+    margin:auto;
+
+}
+
+.VerificationText
+{
+    font-size: 17px;
+    font-family:  'Times New Roman', Times, serif
+}

@@ -91,7 +91,7 @@ class SignIn extends Component {
         .then((user) => {
           if (user.user.emailVerified === false) 
           {
-           this.props.history.push('/Verify')
+           this.props.history.push('/User/Verify')
           } 
           else {
             // this
@@ -100,7 +100,7 @@ class SignIn extends Component {
             this
               .props
               .history
-              .push('/UserView/LandingPage')
+              .push('/User/Home')
           }
 
         })

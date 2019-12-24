@@ -14,17 +14,18 @@ class UserView extends Component {
 
     componentDidMount()
     {
+      console.log(this.props.histor,'history')
        var user = firebase.auth().currentUser;
        const { history } = this.props;
       if (user) {
          if(user.emailVerified==true)
              { 
-              history.push('/UserView/LandingPage')
+              history.push('/User/Home')
              }
              else {
-               if(this.props.histor!='/Verify')
+               if(this.props.histor!='/User/Verify')
                {
-                history.push('/Verify')
+                history.push('/User/Verify')
                }
              }
         console.log(user,'user')
@@ -37,9 +38,13 @@ class UserView extends Component {
         
         const {classes}=this.props;
           return (
-            <div >
+            <div style={{position:'relative',marginBottom:'64px'}}>
                <AppBar />
-                <Drawers />
+               {
+this.props.history.location.pathname === '/User/Verify' ?
+null:
+                 <Drawers />
+               }
                </div>
 
           )
