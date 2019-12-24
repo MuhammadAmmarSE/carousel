@@ -9,6 +9,28 @@ class UserView extends Component {
       this.state={
        
       }
+
+      
+    }
+    componentDidMount()
+    {
+      /* if(user in redux)
+           {
+             if(user==verified)
+             {
+               do nothing
+             }
+
+             else {
+               if(history!=verificationPage)
+               {
+                 move to verification page
+               }
+             }
+
+           }
+           
+           */
     }
       render(){
         const {classes}=this.props;
