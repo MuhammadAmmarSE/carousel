@@ -41,9 +41,9 @@ class UserView extends Component {
       render(){
         const {classes}=this.props;
           return (
-            <div >
+            <div style={{position:'relative',marginBottom:'64px'}}>
                <AppBar />
-                <Drawers />
+              <Drawers />
                </div>
 
           )
