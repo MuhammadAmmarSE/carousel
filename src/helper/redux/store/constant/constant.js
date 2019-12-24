@@ -1,5 +1,7 @@
 const ActionTypes = {
-    SignupUser: "SignupUser",
+    MT:'MT',
+    UID:'UID',
+    UserInfo:'UserInfo',
 }
 
 export default ActionTypes;

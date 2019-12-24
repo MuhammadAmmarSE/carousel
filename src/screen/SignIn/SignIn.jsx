@@ -89,7 +89,6 @@ class SignIn extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
-          console.log(user.user.emailVerified)
           if (user.user.emailVerified === false) 
           {
             //verification page

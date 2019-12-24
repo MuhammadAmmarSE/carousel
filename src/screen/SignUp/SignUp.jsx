@@ -74,6 +74,7 @@ class SignUp extends Component {
     async signup() {
         ////////////
         const { email, password, Firstname, Lastname } = this.state;
+        const memberType = 'guest'
      if ( Firstname === '') {
       this.setState({fnames:true})
       return;
@@ -94,6 +95,7 @@ class SignUp extends Component {
   else if (email !== '', password !== '', Firstname !== '', Lastname !== '') {
 
         firebase.auth().createUserWithEmailAndPassword(email, password).then((user)=>{
+            console.log(user,'user')
         })
         .then(() => {
         var user=firebase.auth().currentUser;
@@ -108,7 +110,8 @@ class SignUp extends Component {
                 email,
                 password,
                 Firstname,
-                Lastname
+                Lastname,
+                memberType
             }
            var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
            console.log(userkey,'authValues')
