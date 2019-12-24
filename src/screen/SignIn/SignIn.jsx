@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 // import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import { connect } from 'react-redux';
 import firebase from '../../helper/firebase'
 
 import './SignIn.css';
@@ -91,16 +91,16 @@ class SignIn extends Component {
         .then((user) => {
           if (user.user.emailVerified === false) 
           {
-            //verification page
+           this.props.history.push('/Verify')
           } 
           else {
-            this
-              .props
-              .SignInInfo(email)
+            // this
+            //   .props
+            //   .SignInInfo(email)
             this
               .props
               .history
-              .push('/StartPage')
+              .push('/UserView/LandingPage')
           }
 
         })
@@ -111,7 +111,7 @@ class SignIn extends Component {
 
             if(error.code==='auth/wrong-password')
             {
-                this.setState({ error2:true, errorMessage:"Password Wrong"})
+                this.setState({ error2:true, errorMessage:"Password Invalid "})
             }
 
             else if(error.code==='auth/user-not-found')
@@ -140,6 +140,7 @@ class SignIn extends Component {
 
 componentDidMount()
 {
+  console.log(this.props.getHis,'getHis')
   // if already signedIn-- then route to Homepage else
   // if(this.context.state.uid!=null) {   this.context.history.push('./Home') }
 }
@@ -260,5 +261,14 @@ render() {
   );
 }
 }
-
-export default withStyles(style)(SignIn);
+function mapStateToProp(state) {
+  return ({
+    getHis:state.root.getHis,
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     
+  })
+}
+export default connect(mapStateToProp, mapDispatchToProp)(withStyles(style)(SignIn));

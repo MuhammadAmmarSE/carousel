@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-import AppBar from '../../../staticViews/Appbar/Appbar'
-import Drawers from '../../../staticViews/Drawer/Drawer'
-
 class LandingPage extends Component {
   constructor(props) {
       super(props);
@@ -14,7 +11,7 @@ class LandingPage extends Component {
     const { classes } = this.props;
     return ( 
 <div>
-  <p style={{marginTop:64,marginLeft:300}}>Landing Page</p>
+  <p style={{marginTop:70,marginLeft:400}}>Landing Page</p>
 </div>
   );
 }

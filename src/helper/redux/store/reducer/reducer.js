@@ -3,6 +3,14 @@ import ActionTypes from '../constant/constant';
 const INITIAL_STATE = {
     memberType: "",
     uid:null,
+    getHis:null,
+    userName:null,
+    userProPhoto:null,
+    phoneNumber:null,
+    ThemesLeft:null,
+    UserSince:null,
+    LastLogin:null,
+
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,7 +37,12 @@ export default (state = INITIAL_STATE, action) => {
                     ThemesLeft:action.payload.phoneNumber,
                     UserSince:action.payload.UserSince,
                     LastLogin:action.payload.LastLogin,
-                })    
+                })
+                case ActionTypes.getHistory:
+                return({
+                    ...state,
+                    getHis:action.payload,
+                })
         default:
             return state;
     }

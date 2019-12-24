@@ -1,4 +1,4 @@
-import ActionTypes from '../';
+import ActionTypes from '../constant/constant';
 import { func } from 'prop-types';
 
 
@@ -13,5 +13,10 @@ export function userId(info){
 export function UserInfo(value)
 {
     return dispatch=>dispatch({type:ActionTypes.UserInfo,payload:value})
+
+}
+export function getHistory(value)
+{
+    return dispatch=>dispatch({type:ActionTypes.getHistory,payload:value})
 
 }

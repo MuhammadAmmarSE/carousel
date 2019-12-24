@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AppBar from '../../staticViews/Appbar/Appbar'
 import Drawers from '../../staticViews/Drawer/Drawer'
-
+import firebase from '../../helper/firebase'
+import { connect } from 'react-redux';
 
 class UserView extends Component {
   constructor(props){
@@ -9,36 +10,31 @@ class UserView extends Component {
       this.state={
        
       }
-
-      
     }
+
     componentDidMount()
     {
-      /* var user = firebase.auth().currentUser;
+       var user = firebase.auth().currentUser;
+       const { history } = this.props;
       if (user) {
-
-         if(user==verified)
-             {
-               do nothing
+         if(user.emailVerified==true)
+             { 
+              history.push('/UserView/LandingPage')
              }
-
              else {
-               if(history!=verificationPage)
+               if(this.props.histor!='/Verify')
                {
-                 move to verification page
+                history.push('/Verify')
                }
              }
+        console.log(user,'user')
       }
-
-      
       else {
-        No user is signed in.
-      }
-      
-           
-           */
+        history.push('/')
+      }  
     }
       render(){
+        
         const {classes}=this.props;
           return (
             <div >
@@ -49,5 +45,14 @@ class UserView extends Component {
           )
         }
         }
+        function mapStateToProp(state) {
+          return ({
+            histor:state.root.getHis
+          })
+        }
+        function mapDispatchToProp(dispatch) {
+          return ({
 
-        export default UserView;
+          })
+        }
+        export default connect(mapStateToProp, mapDispatchToProp)(UserView);
