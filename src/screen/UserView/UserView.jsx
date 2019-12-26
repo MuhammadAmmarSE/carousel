@@ -17,12 +17,14 @@ class UserView extends Component {
       console.log(this.props.histor,'history')
        var user = firebase.auth().currentUser;
        const { history } = this.props;
-      if (user) {
+      if (user!=null) {
+        
          if(user.emailVerified==true)
              { 
               history.push('/User/Home')
              }
-             else {
+             else
+             {
                if(this.props.histor!='/User/Verify')
                {
                 history.push('/User/Verify')
@@ -31,6 +33,7 @@ class UserView extends Component {
         console.log(user,'user')
       }
       else {
+        console.log(user)
         history.push('/')
       }  
     }

@@ -16,7 +16,7 @@ class App extends Component {
         super(props);
         this.state = {  } 
     }
-    componentDidMount(){
+    componentWillMount(){
         this.props.getHistory(history);
     }
     render() { 
@@ -24,14 +24,12 @@ class App extends Component {
         
           
         <Router history={history}>
-                    {/* App bar here */} {/*<Route path="/" component={Appbar} />*/}  {/* Default component - check auth here */}
+                   
                     <Route exact path="/" component={SignIn} />
                     <Route exact path="/SignUp" component={SignUp} />
                     <Route path="/User" component={UserView} />
                     <Route exact path="/User/Home" component={LandingPage} />
                     <Route path="/User/Verify" component={Verify}/>
-                     
-               
         </Router>
           
       

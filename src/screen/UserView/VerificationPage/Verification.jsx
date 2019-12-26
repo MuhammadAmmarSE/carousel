@@ -25,7 +25,7 @@ class Verification extends Component {
     }
     
     render() { 
-        return ( <div style={{background:'#F7F8FC',marginLeft:'250px',width:'calc(100% - 250px)',height:'calc(100vh - 64px)'}}>
+        return ( <div style={{background:'#F7F8FC',width:'100%',height:'calc(100vh - 64px)'}}>
             
             <Paper class="VerificationText" id="VerificationPaper">
 
