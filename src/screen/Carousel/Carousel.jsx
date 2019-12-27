@@ -98,51 +98,27 @@ let carouselData = []
 constructor(props){
     super(props);
     this.state={
-        open:true,
-        visibles:false,
         mydata:[]
     }
-    this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
-    this.handleDrawerClose=this.handleDrawerClose.bind(this);
-
-}
-
-handleDrawerOpen()
-{
-    console.log("open")
-    this.setState({open:true})
-}
-handleDrawerClose()
-{
-    console.log("close")
-
-    this.setState({open:false})
 
 }
 
 
 
-SignOut=()=>{
-  this.props.history.push('/');
-  firebase.auth().signOut().then(function() {
-    console.log('Signed Out');
-  }, function(error) {
-    console.error('Sign Out Error', error);
-  });
-}
 
 GetData=()=>{
 
-  var carousel = {
+  var carousel = 
+  {
     name :'Carousel Three',
     title :'Title Three',
     description:'Description Three'
-}
+  }
 
   // var key = firebase.database().ref('Usercarousel/').push(carousel).key;
   // console.log("message=========>", key);
 
-  firebase.database().ref('Usercarousel/').once('value',(snap)=>{
+  firebase.dataase().ref('Usercarousel/').once('value',(snap)=>{
     console.log('action data',snap.val());
     var data=[]
     let fbData=snap.val()
@@ -158,7 +134,6 @@ GetData=()=>{
 }
 componentDidMount(){
   this.GetData()
-  console.log('asdasd')
 }
 
 CreateCarousel(){

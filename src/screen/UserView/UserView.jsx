@@ -13,29 +13,30 @@ class UserView extends Component {
     }
 
     componentDidMount()
-    {
-      console.log(this.props.histor,'history')
-       var user = firebase.auth().currentUser;
-       const { history } = this.props;
-      if (user!=null) {
-        
-         if(user.emailVerified==true)
+    { const { histor } = this.props;
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user != null) {
+          if(user.emailVerified==true)
              { 
-              history.push('/User/Home')
+              histor.push('/User/Home')
              }
              else
              {
-               if(this.props.histor!='/User/Verify')
+               if(histor!='/User/Verify')
                {
-                history.push('/User/Verify')
+                histor.push('/User/Verify')
                }
              }
-        console.log(user,'user')
-      }
-      else {
-        console.log(user)
-        history.push('/')
-      }  
+        
+        }
+        else {
+          histor.push('/')
+        }
+      });
+
+
+       
+     
     }
       render(){
         
