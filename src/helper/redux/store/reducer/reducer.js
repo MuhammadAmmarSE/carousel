@@ -10,6 +10,13 @@ const INITIAL_STATE = {
     ThemesLeft:null,
     UserSince:null,
     LastLogin:null,
+    setUser:null,
+    userDataname:null,
+    userDataLastLogin:null,
+    userDataMemberType:null,
+    userDataUserSince:null,
+    userDatacredits:null,
+    userDataemail:null,
 
 }
 
@@ -43,6 +50,22 @@ export default (state = INITIAL_STATE, action) => {
                     ...state,
                     getHis:action.payload,
                 })
+                case ActionTypes.setUser:
+                return({
+                    ...state,
+                    setUser:action.payload,
+                })
+                case ActionTypes.userData:
+                    return({
+                        ...state,
+                        userDataname:action.payload.name,
+                        userDataLastLogin:action.payload.LastLogin,
+                        userDataMemberType:action.payload.MemberType,
+                        userDataUserSince:action.payload.UserSince,
+                        userDatacredits:action.payload.credits,
+                        userDataemail:action.payload.email,
+                    })
+                
         default:
             return state;
     }

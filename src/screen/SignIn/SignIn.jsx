@@ -137,9 +137,7 @@ class SignIn extends Component {
 
 componentDidMount()
 {
-  console.log(this.props.getHis,'getHis')
-  // if already signedIn-- then route to Homepage else
-  // if(this.context.state.uid!=null) {   this.context.history.push('./Home') }
+  
 }
 render() {
 
@@ -253,7 +251,8 @@ render() {
                 Sign Up ?
               </Typography>
             </Toolbar> </form>
-        </div > </Container> </div>
+
+        </div ></Container> </div>
         </div>
   );
 }

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
  import AppBar from '@material-ui/core/AppBar';
  import CssBaseline from '@material-ui/core/CssBaseline';
  import Toolbar from '@material-ui/core/Toolbar';
  import Typography from '@material-ui/core/Typography';
  import Button from '@material-ui/core/Button';
  import { withStyles } from '@material-ui/core/styles';
+ import firebase from '../../helper/firebase.js';
 
  const drawerWidth = 240;
 const styles = theme=> ({
@@ -30,9 +31,18 @@ const styles = theme=> ({
     constructor(props){
         super(props);
         this.state={
-            open:true,
-            visibles:false
         }
+    }
+
+    Logout()
+    {
+      firebase.auth().signOut()
+  .then(function() {
+    // Sign-out successful.
+  })
+  .catch(function(error) {
+    // An error happened
+  });
     }
     
  
@@ -51,7 +61,7 @@ const styles = theme=> ({
       Carousel - Tool
     </Typography>
     <Button 
-    color="inherit">Sign Out</Button>
+    color="inherit" onClick={this.Logout} >Sign Out</Button>
   </Toolbar>
 </AppBar>
 </div>

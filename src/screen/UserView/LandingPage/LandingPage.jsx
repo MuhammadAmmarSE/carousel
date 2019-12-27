@@ -1,9 +1,90 @@
 import React, { Component } from 'react';
-import Carousel from '../../Carousel/Carousel'
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import  firebase from '../../../helper/firebase';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+
+
+const drawerWidth = 240;
+
+const styles = theme=> ({
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  card: {
+    maxWidth: 320,
+    marginTop:100,
+    marginLeft:'250px',marginRight:'-200px',
+  },
+  media: {
+    height: 140,
+  },
+  textStyle:{
+    textAlign:'left'
+    }
+});
+
+
+
 class LandingPage extends Component {
   constructor(props) {
       super(props);
       this.state = { 
+        mydata:[]
        }
   }
 
@@ -18,12 +99,10 @@ class LandingPage extends Component {
   }
   
     firebase.database().ref('Usercarousel/').once('value',(snap)=>{
-      console.log('action data',snap.val());
       var data=[]
       let fbData=snap.val()
       for (var key in fbData)
       {
-        console.log("data===========>",fbData[key])
       data.push(fbData[key])
       }
   
@@ -33,24 +112,15 @@ class LandingPage extends Component {
   }
   componentDidMount(){
     this.GetData()
-    console.log('asdasd')
   }
   
   CreateCarousel(){
     this.props.history.push('/Manage');
   }
 
-
-
-
-
-
   render() { 
     const { classes } = this.props;
     return ( 
-{/* <div>
- <Carousel />
-</div> */}
 <div className={classes.root}>
 
 <div style={{flexDirection:'row',}}>
@@ -110,4 +180,16 @@ class LandingPage extends Component {
 }
 }
 
-export default LandingPage;
+
+function mapStateToProp(state) {
+  return ({
+   
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     
+  })
+}
+
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(LandingPage));

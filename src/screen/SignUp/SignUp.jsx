@@ -54,17 +54,19 @@ const styles = theme => ({
 class SignUp extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            Firstname: '',
-      Lastname: '',
-      email: '',
-      password: '',
-      Logo: false,
-      fnames:false,
-      lastNames:false,
-      emails:false,passwords:false
-         }
-         this.signup = this.signup.bind(this)
+        this.state = 
+        {
+        Firstname: '',
+        Lastname: '',
+        email: '',
+        password: '',
+        Logo: false,
+        fnames:false,
+        lastNames:false,
+        emails:false,
+        passwords:false
+        }
+        this.signup = this.signup.bind(this)
     }
 
     componentDidMount()
