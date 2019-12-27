@@ -94,23 +94,23 @@ classes={{
     <Divider style={{marginTop:20}}/>
 <List>            
     <ListItem button 
-    //onClick={this.StartPage.bind(this)} 
+    //onClick={this.Home.bind(this)} 
     style={{marginTop:45}}>
-      <ListItemIcon> <MailIcon /></ListItemIcon>
+      <ListItemIcon> <MailIcon color='primary'/></ListItemIcon>
   
       <ListItemText
 disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Home</Typography>}
+primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Home</Typography>}
 />
     </ListItem>
 </List>
 <Divider style={{marginTop:-5}}/>
 <List>            
     <ListItem button  style={{marginTop:5}}>
-      <ListItemIcon> <Person color='primary'/></ListItemIcon>
+      <ListItemIcon> <Person /></ListItemIcon>
       <ListItemText
 disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Profile</Typography>}
+primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Profile</Typography>}
 />
     
     </ListItem>

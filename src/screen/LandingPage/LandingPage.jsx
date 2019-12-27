@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AppBar from '../../staticViews/Appbar/Appbar'
 import Drawers from '../../staticViews/Drawer/Drawer'
-
+import Carousel from '../Carousel/Carousel'
 class LandingPage extends Component {
   constructor(props) {
       super(props);
@@ -21,9 +21,9 @@ class LandingPage extends Component {
     const { classes } = this.props;
     return ( 
 <div>
-<AppBar />
-<Drawers />
-  <p style={{marginTop:64,marginLeft:300}}>Landing Page</p>
+{/* <AppBar />
+<Drawers /> */}
+<Carousel />
 </div>
   );
 }

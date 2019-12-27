@@ -18,7 +18,7 @@ class UserView extends Component {
        var user = firebase.auth().currentUser;
        const { history } = this.props;
       if (user) {
-         if(user.emailVerified==true)
+         if(user.emailVerified==false)
              { 
               history.push('/User/Home')
              }
