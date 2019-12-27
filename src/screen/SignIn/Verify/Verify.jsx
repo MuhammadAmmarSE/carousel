@@ -70,12 +70,18 @@ componentDidMount()
 }
 
 resendEmail=()=>{
-  Swal.fire({
-    title:'Sucess',
-    text:'Email has been sent!',
-    icon:'success',
-    button:'Go'
-   })
+  var user = firebase.auth().currentUser;
+  user.sendEmailVerification().then((result) =>{
+    Swal.fire({
+      title:'Sucess',
+      text:'Email has been sent!',
+      icon:'success',
+      button:'Go'
+     })
+     console.log(result,'result')
+  }).catch((error)=>{
+    console.log(error)
+  })
    this.props.history.push('/')
 }
 

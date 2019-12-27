@@ -98,7 +98,7 @@ class SignUp extends Component {
             console.log(user,'user')
         })
         .then(() => {
-        var user=firebase.auth().currentUser;
+        var user = firebase.auth().currentUser;
         user.sendEmailVerification().then((result) =>{
         
         }).catch((error)=>{
@@ -113,8 +113,9 @@ class SignUp extends Component {
                 Lastname,
                 memberType
             }
-           var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
-           console.log(userkey,'authValues')
+           //var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
+
+           //console.log(userkey,'authValues')
            this
            .props
            .history

@@ -25,11 +25,11 @@ class App extends Component {
           
         <Router history={history}>
                    
-                    <Route exact path="/" component={SignIn} />
-                    <Route exact path="/SignUp" component={SignUp} />
-                    <Route path="/User" component={UserView} />
-                    <Route exact path="/User/Home" component={LandingPage} />
-                    <Route path="/User/Verify" component={Verify}/>
+            <Route exact path="/" component={SignIn} />
+            <Route exact path="/SignUp" component={SignUp} />
+            <Route path="/User" component={UserView} />
+            <Route exact path="/User/Home" component={LandingPage} />
+            <Route path="/User/Verify" component={Verify}/>
         </Router>
           
       

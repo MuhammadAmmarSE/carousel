@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Carousel from '../../Carousel/Carousel'
 class LandingPage extends Component {
   constructor(props) {
       super(props);
@@ -11,7 +11,7 @@ class LandingPage extends Component {
     const { classes } = this.props;
     return ( 
 <div>
-  <p style={{marginTop:70,marginLeft:400}}>Landing Page</p>
+ <Carousel />
 </div>
   );
 }
