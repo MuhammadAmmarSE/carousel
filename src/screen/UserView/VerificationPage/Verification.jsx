@@ -5,6 +5,8 @@ import SwipeableViews from 'react-swipeable-views';
 import { IconButton } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import Swal from 'sweetalert2';
+import firebase from '../../../helper/firebase'
 
 
 class Verification extends Component {
@@ -23,7 +25,21 @@ class Verification extends Component {
     {
         this.setState({value:0})
     }
-    
+    resendEmail=()=>{
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then((result) =>{
+          Swal.fire({
+            title:'Sucess',
+            text:'Email has been sent!',
+            icon:'success',
+            button:'Go'
+           })
+           console.log(result,'result')
+        }).catch((error)=>{
+          console.log(error)
+        })
+         this.props.history.push('/')
+      }
     render() { 
         return ( <div style={{background:'#F7F8FC',marginLeft:'250px',width:'calc(100% - 250px)',height:'calc(100vh - 64px)'}}>
             
@@ -38,7 +54,9 @@ class Verification extends Component {
                         Please click on the link sent for verifying your email.
                         If you have not received the email, click on the link below to resend the verification email.
                         <br/><br/>
-                        <a href="">Resend Verification Email</a>
+                        <a href="" onClick={this
+                    .resendEmail
+                    .bind(this)}>Resend Verification Email</a>
                         
                         <br/>
                         
