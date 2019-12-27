@@ -71,7 +71,7 @@ class Verification extends Component {
 
                     <div style={{paddingTop:'40px'}}>
                         <b> I haven't received an email from Carousel</b><br/>
-                        Check your spam mailbox , <a href="">Click Here to send another email to yourself</a>
+                        Check your spam mailbox , <a href="" onClick={this.resendEmail.bind(this)}>Click Here to send another email to yourself</a>
 
                         <br/>
                         <br/>

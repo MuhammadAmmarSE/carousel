@@ -1,20 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import Settings from '@material-ui/icons/Settings';
-import Person from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import  firebase from '../../helper/firebase';
 import Grid from '@material-ui/core/Grid';
@@ -102,34 +89,9 @@ constructor(props){
         visibles:false,
         mydata:[]
     }
-    this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
-    this.handleDrawerClose=this.handleDrawerClose.bind(this);
 
 }
 
-handleDrawerOpen()
-{
-    console.log("open")
-    this.setState({open:true})
-}
-handleDrawerClose()
-{
-    console.log("close")
-
-    this.setState({open:false})
-
-}
-
-
-
-SignOut=()=>{
-  this.props.history.push('/');
-  firebase.auth().signOut().then(function() {
-    console.log('Signed Out');
-  }, function(error) {
-    console.error('Sign Out Error', error);
-  });
-}
 
 GetData=()=>{
 
@@ -138,9 +100,6 @@ GetData=()=>{
     title :'Title Three',
     description:'Description Three'
 }
-
-  // var key = firebase.database().ref('Usercarousel/').push(carousel).key;
-  // console.log("message=========>", key);
 
   firebase.database().ref('Usercarousel/').once('value',(snap)=>{
     console.log('action data',snap.val());
@@ -170,13 +129,8 @@ CreateCarousel(){
 const {classes}=this.props;
   return (
     <div className={classes.root}>
- 
-
-
-
 
 <div style={{flexDirection:'row',}}>
-
 
 {
   this.state.mydata.length ===0 ?

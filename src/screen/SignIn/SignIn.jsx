@@ -15,9 +15,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import { connect } from 'react-redux';
 import firebase from '../../helper/firebase'
-import getData from '../../helper/cookieManagement/getcookiedata'
-import setData from '../../helper/cookieManagement/writecookiedata'
-
 
 import './SignIn.css';
 
@@ -97,9 +94,6 @@ class SignIn extends Component {
            this.props.history.push('/User/Verify')
           } 
           else {
-            // this
-            //   .props
-            //   .SignInInfo(email)
             this
               .props
               .history
@@ -146,11 +140,6 @@ componentDidMount()
   console.log(this.props.getHis,'getHis')
   // if already signedIn-- then route to Homepage else
   // if(this.context.state.uid!=null) {   this.context.history.push('./Home') }
-  console.log(window.location.host.toString())
-  setData('nam','mar')
-  console.log(document.cookie);
-  console.log(getData('name'))
-
 }
 render() {
 
