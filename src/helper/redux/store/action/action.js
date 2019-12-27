@@ -2,6 +2,12 @@ import ActionTypes from '../constant/constant';
 import { func } from 'prop-types';
 
 
+export  function setUser(info){
+  return dispatch => dispatch({type: ActionTypes.setUser, payload: info})
+}
+export  function userData(data){
+  return dispatch => dispatch({type:ActionTypes.userData,payload:data}) 
+}
 export function memberType(info){
   return dispatch => dispatch({type: ActionTypes.MT, payload: info})
 }

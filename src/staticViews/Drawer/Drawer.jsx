@@ -108,10 +108,11 @@ classes={{
 style={{marginTop:45}}>
 <ListItemIcon>{DrawerListIcon[index]}</ListItemIcon>
 
+
   <ListItemText
-disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>item</Typography>}
-/>
+  disableTypography
+  primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>item</Typography>}
+  />
 </ListItem>
 </List>
   )}

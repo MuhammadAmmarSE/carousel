@@ -115,9 +115,6 @@ class SignUp extends Component {
                 Lastname,
                 memberType
             }
-           //var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
-
-           //console.log(userkey,'authValues')
            this
            .props
            .history

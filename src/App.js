@@ -23,8 +23,7 @@ class App extends Component {
         return ( 
         
           
-        <Router history={history}>
-                   
+        <Router history={history}>          
             <Route exact path="/" component={SignIn} />
             <Route exact path="/SignUp" component={SignUp} />
             <Route path="/User" component={UserView} />
