@@ -36,15 +36,17 @@ const styles = theme=> ({
         }
     }
 
-    Logout()
+    Logout=()=>
     {
       firebase.auth().signOut()
   .then(function() {
     // Sign-out successful.
+  
   })
   .catch(function(error) {
     // An error happened
   });
+  this.props.histor.push('/')
     }
     
  
@@ -74,9 +76,11 @@ const styles = theme=> ({
 }
 function mapStateToProp(state) {
   return ({
-    getHis:state.root.getHis,
+    histor:state.root.getHis,
   })
 }
+
+
 
 
 export default connect(mapStateToProp)(withStyles(styles)(AppBars));

@@ -61,35 +61,29 @@ class UserView extends Component {
 
 
     componentDidMount()
-    { const { histor,setUser } = this.props;
-    const global = this
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user != null) {
-         setUser(user);
-          if(user.emailVerified==true)
-             { 
-              global.checkUser();
-               
-               if( histor.location.pathname == '/User'){
-                 
-                histor.push('/User/Home')
+    { 
+      const { histor,getUser } = this.props;
 
-                }
-             }
-             else
-             {
-               if(histor!='/User/Verify')
-               {
-                histor.push('/User/Verify')
-               }
-             }
-        
+      if(this.props.getUser)
+      {
+        if(this.props.getUser.emailVerified==true)
+        { 
+          this.checkUser();
+          if(histor.location.pathname=='/User/Verify')
+          {
+            histor.push('./Home')
+          }
         }
-        else {
-          histor.push('/')
+        else
+        {
+          histor.push('./User/Verify')
         }
-      });
-    }
+      }
+      else histor.push('/');
+}
+       
+     
+    
 
       render(){
         const {classes}=this.props;

@@ -95,20 +95,20 @@ classes={{
 }}
 >
 
-    <Divider style={{marginTop:20}}/>
+    <Divider style={{marginTop:'64px'}}/>
 
     { DrawerList.map((item,index)=>
 
 <List>            
 <ListItem button 
 //onClick={this.Home.bind(this)} 
-style={{marginTop:45}}>
+>
 <ListItemIcon>{DrawerListIcon[index]}</ListItemIcon>
 
 
   <ListItemText
   disableTypography
-  primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>item</Typography>}
+    primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>{DrawerList[index]}</Typography>}
   />
 </ListItem>
 </List>

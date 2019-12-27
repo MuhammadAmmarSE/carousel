@@ -6,8 +6,9 @@ import UserView from './screen/UserView/UserView'
 import history from './helper/history';
 import Verify from './screen/UserView/VerificationPage/Verification';
 import {  Router , Route } from 'react-router-dom'
-import { getHistory } from './helper/redux/store/action/action';
+import { getHistory,setUser, } from './helper/redux/store/action/action';
 import { connect } from 'react-redux';
+import firebase from './helper/firebase'
 
 class App extends Component {
     constructor(props) {
@@ -15,13 +16,28 @@ class App extends Component {
         this.state = {  } 
     }
     componentWillMount(){
+        const { setUser } = this.props;
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user != null)
+    { 
+     setUser(user);
+    
+     if(history.location.pathname=='/' || history.location.pathname=='/User' ||  history.location.pathname==='/signup')
+      { history.push('/User/Home'); }
+    }
+    else
+    {
+  
+    }
+  });
         this.props.getHistory(history);
     }
     render() { 
         return ( 
-        <Router history={history}>          
+        <Router history={history}>      
+
             <Route exact path="/" component={SignIn} />
-            <Route exact path="/SignUp" component={SignUp} />
+            <Route exact path="/Signup" component={SignUp} />
             <Route path="/User" component={UserView} />
             <Route exact path="/User/Home" component={LandingPage} />
             <Route path="/User/Verify" component={Verify}/>
@@ -37,7 +53,8 @@ function mapStateToProp(state) {
   }
   function mapDispatchToProp(dispatch) {
     return ({
-        getHistory: (data) => { dispatch(getHistory(data)) }
+        getHistory: (data) => { dispatch(getHistory(data)) },
+        setUser: (user) => { dispatch(setUser(user)) },
     })
   }
 export default connect(mapStateToProp, mapDispatchToProp)(App);

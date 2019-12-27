@@ -107,6 +107,10 @@ class LandingPage extends Component {
 
   }
   componentDidMount(){
+    if(this.props.getUser)
+    {
+      this.GetData()
+    }
   
   }
 
