@@ -89,16 +89,18 @@ class SignIn extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
-          if (user.user.emailVerified === false) 
-          {
-           this.props.history.push('/User/Verify')
-          } 
-          else {
-            this
-              .props
-              .history
-              .push('/User/Home')
-          }
+
+          this.props.history.push('/User')
+          // if (user.user.emailVerified === false) 
+          // {
+          //  this.props.history.push('/User/Verify')
+          // } 
+          // else {
+          //   this
+          //     .props
+          //     .history
+          //     .push('/User/Home')
+          // }
 
         })
         .catch((error) =>{

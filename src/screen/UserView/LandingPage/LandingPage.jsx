@@ -66,7 +66,7 @@ const styles = theme=> ({
     marginLeft: 0,
   },
   card: {
-    maxWidth: 320,
+    width: 320,
     marginTop:100,
     marginLeft:'250px',marginRight:'-200px',
   },
@@ -84,34 +84,40 @@ class LandingPage extends Component {
   constructor(props) {
       super(props);
       this.state = { 
-        mydata:[]
+        mydata:[],
        }
   }
 
 
 
   GetData=()=>{
-
-    var carousel = {
-      name :'Carousel Three',
-      title :'Title Three',
-      description:'Description Three'
-  }
-  
-    firebase.database().ref('Usercarousel/').once('value',(snap)=>{
+    const user= this.props.getUser;
+    var db = firebase.firestore();
+    db.collection('Users').doc(user.uid).collection("Themes").get().then((querySnapshot) => {
       var data=[]
-      let fbData=snap.val()
-      for (var key in fbData)
+      if(querySnapshot.docs.length>0)
       {
-      data.push(fbData[key])
+        querySnapshot.forEach((doc) => {
+          let newobject={'Name':doc.data().Name,'Thumbnail':doc.data().Thumbnail,'Noc':doc.data().Noc}
+          data.push(newobject)
+      });
       }
-  
-      this.setState({mydata:data})  
-  
-    })
+      this.setState({mydata:data})
+  });
+
   }
   componentDidMount(){
-    this.GetData()
+  
+  }
+
+  componentDidUpdate(prevProps) {
+    // 
+    if (this.props.getUser !== prevProps.getUser && this.props.getUser!==null) {
+      this.GetData()
+    }
+    else{
+      console.log('user not found')
+    }
   }
   
   CreateCarousel(){
@@ -127,8 +133,8 @@ class LandingPage extends Component {
 
 {
   this.state.mydata.length ===0 ?
-  <div style={{marginTop:'20%',marginLeft:'0%' }}>
-   <h3>No Carousel Yet !</h3>
+  <div style={{marginTop:'20%',marginLeft:'450px' }}>
+   <h3 style={{marginLeft:'60px'}}>No Carousel Yet !</h3>
    <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
   Want To create a Carousel
 </Button>
@@ -137,8 +143,6 @@ class LandingPage extends Component {
 <Grid
   container
   direction="row"
-  // justify="center"
-  // alignItems="center"
 >
 
 {this.state.mydata.map((item,i)=>{
@@ -147,15 +151,15 @@ class LandingPage extends Component {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+          image={item.Thumbnail}
           title="Contemplative Reptile"
           />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.textStyle}>
-          {item.name}
+          {item.Name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" className={classes.textStyle}>
-          {item.title} sdsads asdas asdasd asdasd asd asdas
+          Number Of Cards : {item.Noc} 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -170,9 +174,7 @@ class LandingPage extends Component {
     </Card>
       })} 
  </Grid>
-
 }
-    
     </div>
      
     </div>
@@ -183,7 +185,7 @@ class LandingPage extends Component {
 
 function mapStateToProp(state) {
   return ({
-   
+    getUser:state.root.setUser,
   })
 }
 function mapDispatchToProp(dispatch) {

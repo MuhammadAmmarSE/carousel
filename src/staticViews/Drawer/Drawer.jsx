@@ -72,13 +72,10 @@ class Drawers extends Component {
 
   handleDrawerOpen()
 {
-    console.log("open")
     this.setState({open:true})
 }
 handleDrawerClose()
 {
-    console.log("close")
-
     this.setState({open:false})
 
 }
