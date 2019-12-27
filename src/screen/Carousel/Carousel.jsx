@@ -145,29 +145,22 @@ CreateCarousel(){
 const {classes}=this.props;
   return (
     <div className={classes.root}>
- 
-
-
-
-
-<div style={{flexDirection:'row',}}>
-
-
-{
-  this.state.mydata.length ===0 ?
-  <div style={{marginTop:'20%',marginLeft:'0%' }}>
-   <h3>No Carousel Yet !</h3>
-   <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
-  Want To create a Carousel
-</Button>
-      </div>:
-
-<Grid
-  container
-  direction="row"
-  // justify="center"
-  // alignItems="center"
->
+      <div style={{flexDirection:'row',}}>
+        {
+          this.state.mydata.length ===0 ?
+          <div style={{marginTop:'20%',marginLeft:'0%' }}>
+            <h3>No Carousel Yet !</h3>
+            <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
+            Want To create a Carousel
+            </Button>
+          </div>
+          :
+          <Grid
+          container
+          direction="row"
+          // justify="center"
+          // alignItems="center"
+          >
 
 {this.state.mydata.map((item,i)=>{
  
