@@ -16,24 +16,23 @@ class UserView extends Component {
     checkUser=()=>{
 
       var db = firebase.firestore();
-      const user= this.props.getUser
-     
+      const user= this.props.getUser;
+    const global = this;
       db.collection("Users").doc(user.uid).get().then( function (doc){
         if (doc.exists) {
-          console.log("Document data:", doc.data());
-          // var data={
-          //   name : doc
-          //   LastLogin
-          //   MemberType
-          //   UserSince
-          //   credits
-          //   email
-          // }
+          var data = {
+            name: doc.name,
+            LastLogin:doc.LastLogin,
+            MemberType:doc.MemberType,
+            UserSince:doc.UserSince,
+            credits:doc.credits,
+            email:doc.email,
+          }
+          global.props.userData(data);
       } 
       else {
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        console.log('creating user');
         db.collection("Users").doc(user.uid).set({
           name: user.displayName,
           LastLogin:date,
@@ -43,7 +42,6 @@ class UserView extends Component {
           email:user.email
       })
       .then(function() {
-          console.log("Document successfully written!");
         var data = {
           name: user.displayName,
           LastLogin:date,
@@ -56,7 +54,6 @@ class UserView extends Component {
       })
       .catch(function(error) {
           console.error("Error writing document: ", error);
-          //logout
       });
       } 
       })
@@ -74,7 +71,8 @@ class UserView extends Component {
               global.checkUser();
                
                if( histor.location.pathname == '/User'){
-                 histor.push('/User/Home')
+                 
+                histor.push('/User/Home')
 
                 }
              }

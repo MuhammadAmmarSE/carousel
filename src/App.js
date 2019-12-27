@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 import SignIn from './screen/SignIn/SignIn';
-// import Verify from './screen/SignIn/Verify/Verify';
 import SignUp from './screen/SignUp/SignUp';
 import LandingPage from './screen/UserView/LandingPage/LandingPage'
 import UserView from './screen/UserView/UserView'
@@ -21,8 +19,6 @@ class App extends Component {
     }
     render() { 
         return ( 
-        
-          
         <Router history={history}>          
             <Route exact path="/" component={SignIn} />
             <Route exact path="/SignUp" component={SignUp} />
@@ -30,8 +26,6 @@ class App extends Component {
             <Route exact path="/User/Home" component={LandingPage} />
             <Route path="/User/Verify" component={Verify}/>
         </Router>
-          
-      
     );
     }
 }
