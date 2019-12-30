@@ -6,27 +6,44 @@ import UserView from './screen/UserView/UserView'
 import history from './helper/history';
 import Verify from './screen/UserView/VerificationPage/Verification';
 import {  Router , Route } from 'react-router-dom'
-import { getHistory } from './helper/redux/store/action/action';
+import { getHistory,setUser, } from './helper/redux/store/action/action';
 import { connect } from 'react-redux';
-import Stepper from './screen/UserView/Stepper/Stepper'
+import firebase from './helper/firebase'
+
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {  } 
+        this.state = { checked:false} 
     }
     componentWillMount(){
+        const { setUser } = this.props;
+       let global=this;
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user != null)
+    {  global.setState({checked:true});
+     setUser(user);
+    let path=history.location.pathname.toString().toUpperCase();
+     if(path==='/' || path==='/USER' ||  path==='/SIGNUP' || path==='/SIGNIN')
+      { history.push('/User'); }
+    }
+    else
+    {
+      global.setState({checked:true})
+    }
+  });
         this.props.getHistory(history);
     }
     render() { 
         return ( 
-        <Router history={history}>          
+this.state.checked===true?
+        <Router history={history}>      
+
             <Route exact path="/" component={SignIn} />
-            <Route exact path="/SignUp" component={SignUp} />
+            <Route exact path="/Signup" component={SignUp} />
             <Route path="/User" component={UserView} />
             <Route exact path="/User/Home" component={LandingPage} />
             <Route path="/User/Verify" component={Verify}/>
-            <Route path="/User/Stepper" component={Stepper}/>
-        </Router>
+        </Router>:<div></div>
     );
     }
 }
@@ -38,7 +55,8 @@ function mapStateToProp(state) {
   }
   function mapDispatchToProp(dispatch) {
     return ({
-        getHistory: (data) => { dispatch(getHistory(data)) }
+        getHistory: (data) => { dispatch(getHistory(data)) },
+        setUser: (user) => { dispatch(setUser(user)) },
     })
   }
 export default connect(mapStateToProp, mapDispatchToProp)(App);

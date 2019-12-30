@@ -35,15 +35,24 @@ class Verification extends Component {
             button:'Go'
            })
            console.log(result,'result')
+                                                firebase.auth().signOut()
+                                        .then(function() {
+                                            // Sign-out successful.
+                                        
+                                        })
+                                        .catch(function(error) {
+                                            // An error happened
+                                        });
+                                        this.props.histor.push('/')
         }).catch((error)=>{
           console.log(error)
         })
-         this.props.history.push('/')
+         
       }
     render() { 
         return ( <div style={{background:'#F7F8FC',width:'100%',height:'calc(100vh - 64px)'}}>
             
-            <Paper class="VerificationText" id="VerificationPaper">
+            <Paper className="VerificationText" id="VerificationPaper">
 
                 <SwipeableViews index={this.state.value} >
                     <div>
@@ -54,9 +63,9 @@ class Verification extends Component {
                         Please click on the link sent for verifying your email.
                         If you have not received the email, click on the link below to resend the verification email.
                         <br/><br/>
-                        <a href="" onClick={this
+                        <span className="VerificationLink" onClick={this
                     .resendEmail
-                    .bind(this)}>Resend Verification Email</a>
+                    .bind(this)}>Resend Verification Email</span>
                         
                         <br/>
                         
@@ -71,19 +80,19 @@ class Verification extends Component {
 
                     <div style={{paddingTop:'40px'}}>
                         <b> I haven't received an email from Carousel</b><br/>
-                        Check your spam mailbox , <a href="" onClick={this.resendEmail.bind(this)}>Click Here to send another email to yourself</a>
+                        Check your spam mailbox , <span className="VerificationLink" onClick={this.resendEmail.bind(this)}>Click Here to send another email to yourself</span>
 
                         <br/>
                         <br/>
 
                         <b> I need to change my email address</b><br/>
-                        You registered with  abcd.com  <a href="">Click Here to change your email address</a>
+                        You registered with  abcd.com  <span className="VerificationLink">Click Here to change your email address</span>
 
                         <br/>
                         <br/>
 
                         <b> I am still having trouble</b><br/>
-                        If you are still having trouble verifying your email address, drop us a line. <a href="">Contact the Help Center</a>
+                        If you are still having trouble verifying your email address, drop us a line. <span className="VerificationLink">Contact the Help Center</span>
                        <br/>
 
                        <div style={{position:'relative',bottom:'0px',float:'right',}}>

@@ -70,6 +70,7 @@ componentDidMount()
 }
 
 resendEmail=()=>{
+  alert('resned') 
   var user = firebase.auth().currentUser;
   user.sendEmailVerification().then((result) =>{
     Swal.fire({

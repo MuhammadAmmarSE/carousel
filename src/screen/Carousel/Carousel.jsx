@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MailIcon from '@material-ui/icons/Mail';
+import Settings from '@material-ui/icons/Settings';
+import Person from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
-import  firebase from '../../../helper/firebase';
+import  firebase from '../../helper/firebase';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -66,7 +79,7 @@ const styles = theme=> ({
     marginLeft: 0,
   },
   card: {
-    width: 320,
+    maxWidth: 320,
     marginTop:100,
     marginLeft:'250px',marginRight:'-200px',
   },
@@ -80,73 +93,74 @@ const styles = theme=> ({
 
 
 
-class LandingPage extends Component {
-  constructor(props) {
-      super(props);
-      this.state = { 
-        mydata:[],
-       }
+let carouselData = []
+ class Carousel extends Component {
+constructor(props){
+    super(props);
+    this.state={
+        mydata:[]
+    }
+
+}
+
+
+
+
+GetData=()=>{
+
+  var carousel = 
+  {
+    name :'Carousel Three',
+    title :'Title Three',
+    description:'Description Three'
   }
 
+  // var key = firebase.database().ref('Usercarousel/').push(carousel).key;
+  // console.log("message=========>", key);
 
-
-  GetData=()=>{
-    const user= this.props.getUser;
-    var db = firebase.firestore();
-    db.collection('Users').doc(user.uid).collection("Themes").get().then((querySnapshot) => {
-      var data=[]
-      if(querySnapshot.docs.length>0)
-      {
-        querySnapshot.forEach((doc) => {
-          let newobject={'Name':doc.data().Name,'Thumbnail':doc.data().Thumbnail,'Noc':doc.data().Noc}
-          data.push(newobject)
-      });
-      }
-      this.setState({mydata:data})
-  });
-
-  }
-  componentDidMount(){
-    if(this.props.getUser)
+  firebase.dataase().ref('Usercarousel/').once('value',(snap)=>{
+    console.log('action data',snap.val());
+    var data=[]
+    let fbData=snap.val()
+    for (var key in fbData)
     {
-      this.GetData()
+      console.log("data===========>",fbData[key])
+    data.push(fbData[key])
     }
-  
-  }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.getUser !== prevProps.getUser && this.props.getUser!==null) {
-      this.GetData()
-    }
-    else{
-      console.log('user not found')
-    }
-  }
-  
-  CreateCarousel(){
-    this.props.history.push('/Manage');
-  }
+    this.setState({mydata:data})  
 
-  render() { 
-    const { classes } = this.props;
-    return ( 
-<div style={{}}className={classes.root}>
+  })
+}
+componentDidMount(){
+  this.GetData()
+}
 
-<div style={{flexDirection:'row',}}>
+CreateCarousel(){
+  this.props.history.push('/Manage');
+}
 
-{
-  this.state.mydata.length ===0 ?
-  <div style={{marginTop:'20%',marginLeft:'450px' }}>
-   <h3 style={{marginLeft:'60px'}}>No Carousel Yet !</h3>
-   <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
-  Want To create a Carousel
-</Button>
-      </div>:
-
-<Grid
-  container
-  direction="row"
->
+  render(){
+    console.log("state========>",this.state.mydata)
+const {classes}=this.props;
+  return (
+    <div className={classes.root}>
+      <div style={{flexDirection:'row',}}>
+        {
+          this.state.mydata.length ===0 ?
+          <div style={{marginTop:'20%',marginLeft:'0%' }}>
+            <h3>No Carousel Yet !</h3>
+            <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
+            Want To create a Carousel
+            </Button>
+          </div>
+          :
+          <Grid
+          container
+          direction="row"
+          // justify="center"
+          // alignItems="center"
+          >
 
 {this.state.mydata.map((item,i)=>{
  
@@ -154,15 +168,15 @@ class LandingPage extends Component {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={item.Thumbnail}
+          image="https://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
           title="Contemplative Reptile"
           />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.textStyle}>
-          {item.Name}
+          {item.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" className={classes.textStyle}>
-          Number Of Cards : {item.Noc} 
+          {item.title} sdsads asdas asdasd asdasd asd asdas
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -177,18 +191,20 @@ class LandingPage extends Component {
     </Card>
       })} 
  </Grid>
+
 }
+    
     </div>
      
     </div>
+  
   );
+    }
 }
-}
-
 
 function mapStateToProp(state) {
   return ({
-    getUser:state.root.setUser,
+   
   })
 }
 function mapDispatchToProp(dispatch) {
@@ -197,4 +213,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(LandingPage));
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Carousel));

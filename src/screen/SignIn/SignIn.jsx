@@ -14,7 +14,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import { connect } from 'react-redux';
-import firebase from '../../helper/firebase'
+import firebase from '../../helper/firebase';
+import {setUser,userData} from '../../helper/redux/store/action/action';
 
 import './SignIn.css';
 
@@ -90,7 +91,7 @@ class SignIn extends Component {
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
 
-          this.props.history.push('/User')
+          // this.props.history.push('/User')
           // if (user.user.emailVerified === false) 
           // {
           //  this.props.history.push('/User/Verify')
@@ -134,12 +135,25 @@ class SignIn extends Component {
             })
     }
 
+  
+
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user != null) {
+    //    setUser(user);
+    //    histor.push('/abcd')
+    //   }
+    //   else {
+    
+    //   }
+    // });
+  
   }
 
 
 componentDidMount()
 {
   
+
 }
 render() {
 
@@ -261,12 +275,14 @@ render() {
 }
 function mapStateToProp(state) {
   return ({
-    getHis:state.root.getHis,
+    histor:state.root.getHis,
+    getUser:state.root.setUser,
   })
 }
 function mapDispatchToProp(dispatch) {
   return ({
-     
+    setUser: (user) => { dispatch(setUser(user)) },
+    userData: (data) => {dispatch(userData(data))},
   })
 }
 export default connect(mapStateToProp, mapDispatchToProp)(withStyles(style)(SignIn));

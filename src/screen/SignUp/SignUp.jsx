@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -76,25 +76,25 @@ class SignUp extends Component {
     async signup() {
         ////////////
         const { email, password, Firstname, Lastname } = this.state;
-        const memberType = 'guest'
+       
      if ( Firstname === '') {
       this.setState({fnames:true})
       return;
           }
-          else if ( Lastname == '') {
+          else if ( Lastname === '') {
             this.setState({lastNames:true})
             return;
                 }
-    else if (email == '') {
+    else if (email === '') {
         this.setState({emails:true})
         return;
     }
-    else if ( password == '') {
+    else if ( password === '') {
         this.setState({passwords:true})
         return;
           }
   
-  else if (email !== '', password !== '', Firstname !== '', Lastname !== '') {
+  else if (email !== '' || password !== '' || Firstname !== '' || Lastname !== '') {
 
         firebase.auth().createUserWithEmailAndPassword(email, password).then((user)=>{
             console.log(user,'user')
@@ -107,14 +107,7 @@ class SignUp extends Component {
             console.log("error",error)
     
         })
-            let userobject=
-            {
-                email,
-                password,
-                Firstname,
-                Lastname,
-                memberType
-            }
+            
            this
            .props
            .history
@@ -142,7 +135,7 @@ class SignUp extends Component {
     render() { 
         const { classes } = this.props;
         return ( 
-        <div>{this.state.Logo ? <img src={Logo} /> :
+        <div>{this.state.Logo ? <img alt="Logo" src={Logo} /> :
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar variant="dense">

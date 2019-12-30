@@ -6,6 +6,8 @@
  import Button from '@material-ui/core/Button';
  import { withStyles } from '@material-ui/core/styles';
  import firebase from '../../helper/firebase.js';
+ import { connect } from 'react-redux';
+
 
  const drawerWidth = 240;
 const styles = theme=> ({
@@ -34,15 +36,17 @@ const styles = theme=> ({
         }
     }
 
-    Logout()
+    Logout=()=>
     {
       firebase.auth().signOut()
   .then(function() {
     // Sign-out successful.
+  
   })
   .catch(function(error) {
     // An error happened
   });
+  this.props.histor.push('/')
     }
     
  
@@ -60,8 +64,9 @@ const styles = theme=> ({
     <Typography variant="h6" noWrap>
       Carousel - Tool
     </Typography>
-    <Button 
-    color="inherit" onClick={this.Logout} >Sign Out</Button>
+    <Button color="inherit" onClick={this.Logout} >
+      Sign Out
+    </Button>
   </Toolbar>
 </AppBar>
 </div>
@@ -69,5 +74,13 @@ const styles = theme=> ({
 );
     }
 }
+function mapStateToProp(state) {
+  return ({
+    histor:state.root.getHis,
+  })
+}
 
-export default withStyles(styles)(AppBars);
+
+
+
+export default connect(mapStateToProp)(withStyles(styles)(AppBars));
