@@ -13,27 +13,29 @@ import firebase from './helper/firebase'
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {  } 
+        this.state = { checked:false} 
     }
     componentWillMount(){
         const { setUser } = this.props;
+       let global=this;
   firebase.auth().onAuthStateChanged(function(user) {
     if (user != null)
-    { 
+    {  global.setState({checked:true});
      setUser(user);
-    
-     if(history.location.pathname=='/' || history.location.pathname=='/User' ||  history.location.pathname==='/signup')
-      { history.push('/User/Home'); }
+    let path=history.location.pathname.toString().toUpperCase();
+     if(path==='/' || path==='/USER' ||  path==='/SIGNUP' || path==='/SIGNIN')
+      { history.push('/User'); }
     }
     else
     {
-  
+      global.setState({checked:true})
     }
   });
         this.props.getHistory(history);
     }
     render() { 
         return ( 
+this.state.checked===true?
         <Router history={history}>      
 
             <Route exact path="/" component={SignIn} />
@@ -41,7 +43,7 @@ class App extends Component {
             <Route path="/User" component={UserView} />
             <Route exact path="/User/Home" component={LandingPage} />
             <Route path="/User/Verify" component={Verify}/>
-        </Router>
+        </Router>:<div></div>
     );
     }
 }

@@ -18,3 +18,21 @@
     font-size: 17px;
     font-family:  'Times New Roman', Times, serif
 }
+
+.VerificationLink
+{
+  text-decoration: underline;
+  color:purple;
+  cursor: pointer;
+}
+
+.VerificationLink:hover
+{
+  color:blue;
+}
+
+
+.VerificationLink:visited
+{
+  color:green;
+}

@@ -62,21 +62,22 @@ class UserView extends Component {
 
     componentDidMount()
     { 
-      const { histor,getUser } = this.props;
+      const { histor} = this.props;
 
       if(this.props.getUser)
       {
-        if(this.props.getUser.emailVerified==true)
+         
+        if(this.props.getUser.emailVerified===true)
         { 
           this.checkUser();
-          if(histor.location.pathname=='/User/Verify')
+          if(histor.location.pathname==='/User/Verify')
           {
             histor.push('./Home')
           }
         }
         else
-        {
-          histor.push('./User/Verify')
+        { console.log('this')
+          histor.push('/User/Verify') 
         }
       }
       else histor.push('/');
@@ -86,7 +87,7 @@ class UserView extends Component {
     
 
       render(){
-        const {classes}=this.props;
+        
           return (
             <div style={{position:'relative',marginBottom:'64px'}}>
                <AppBar />

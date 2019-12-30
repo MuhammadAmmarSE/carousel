@@ -135,17 +135,17 @@ class SignIn extends Component {
             })
     }
 
-    const { histor,setUser } = this.props;
+  
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user != null) {
-       setUser(user);
-       histor.push('/User/Home')
-      }
-      else {
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user != null) {
+    //    setUser(user);
+    //    histor.push('/abcd')
+    //   }
+    //   else {
     
-      }
-    });
+    //   }
+    // });
   
   }
 
