@@ -8,7 +8,7 @@ import Verify from './screen/UserView/VerificationPage/Verification';
 import {  Router , Route } from 'react-router-dom'
 import { getHistory } from './helper/redux/store/action/action';
 import { connect } from 'react-redux';
-
+import Stepper from './screen/UserView/Stepper/Stepper'
 class App extends Component {
     constructor(props) {
         super(props);
@@ -25,6 +25,7 @@ class App extends Component {
             <Route path="/User" component={UserView} />
             <Route exact path="/User/Home" component={LandingPage} />
             <Route path="/User/Verify" component={Verify}/>
+            <Route path="/User/Stepper" component={Stepper}/>
         </Router>
     );
     }

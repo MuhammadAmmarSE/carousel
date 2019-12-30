@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const drawerWidth = 240;
 const styles = theme=> ({
@@ -73,6 +74,10 @@ handleDrawerClose()
     this.setState({open:false})
 
 }
+Create=()=>{
+  this.props.histor.push('Stepper')
+}
+
 render(){
 const {classes}=this.props;
   return (
@@ -114,7 +119,7 @@ primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'g
 </List>
 <Divider style={{marginTop:-5}}/>
 <List>            
-    <ListItem button onClick={this.Create} style={{marginTop:5}}>
+    <ListItem button onClick={this.Create.bind(this)} style={{marginTop:5}}>
       <ListItemIcon> <MailIcon /></ListItemIcon>
       <ListItemText
 disableTypography
@@ -143,4 +148,15 @@ primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'g
     }
 }
 
-export default withStyles(styles)(Drawers);
+function mapStateToProp(state) {
+  return ({
+    histor:state.root.getHis,
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+
+  })
+}
+
+export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(Drawers));
