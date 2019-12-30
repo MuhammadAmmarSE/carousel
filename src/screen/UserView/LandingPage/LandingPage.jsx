@@ -115,7 +115,6 @@ class LandingPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // 
     if (this.props.getUser !== prevProps.getUser && this.props.getUser!==null) {
       this.GetData()
     }
