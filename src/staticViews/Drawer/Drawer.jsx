@@ -11,10 +11,6 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-=======
-
->>>>>>> 516e2964963f299483665f8cceb151d9f4849ed2
 
 const drawerWidth = 240;
 const styles = theme=> ({
@@ -80,12 +76,6 @@ handleDrawerClose()
     this.setState({open:false})
 
 }
-<<<<<<< HEAD
-Create=()=>{
-  this.props.histor.push('Stepper')
-}
-=======
->>>>>>> 516e2964963f299483665f8cceb151d9f4849ed2
 
 render(){
 const {classes}=this.props;
@@ -102,53 +92,6 @@ classes={{
 }}
 >
 
-<<<<<<< HEAD
-    <Divider style={{marginTop:20}}/>
-<List>            
-    <ListItem button 
-    //onClick={this.Home.bind(this)} 
-    style={{marginTop:45}}>
-      <ListItemIcon> <MailIcon color='primary'/></ListItemIcon>
-  
-      <ListItemText
-disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Home</Typography>}
-/>
-    </ListItem>
-</List>
-<Divider style={{marginTop:-5}}/>
-<List>            
-    <ListItem button  style={{marginTop:5}}>
-      <ListItemIcon> <Person /></ListItemIcon>
-      <ListItemText
-disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Profile</Typography>}
-/>
-    
-    </ListItem>
-</List>
-<Divider style={{marginTop:-5}}/>
-<List>            
-    <ListItem button onClick={this.Create.bind(this)} style={{marginTop:5}}>
-      <ListItemIcon> <MailIcon /></ListItemIcon>
-      <ListItemText
-disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Manage</Typography>}
-/>
-    </ListItem>
-</List>
-<Divider style={{marginTop:-5}}/>
-<List>            
-    <ListItem button 
-   // onClick={this.Setting.bind(this)}
-     style={{marginTop:5}}>
-      <ListItemIcon> <Settings /></ListItemIcon>
-      <ListItemText
-disableTypography
-primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Setting</Typography>}
-/>
-    </ListItem>
-=======
     <Divider style={{marginTop:'64px'}}/>
 
     { DrawerList.map((item,index)=>
@@ -165,7 +108,6 @@ primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'g
     primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>{DrawerList[index]}</Typography>}
   />
 </ListItem>
->>>>>>> 516e2964963f299483665f8cceb151d9f4849ed2
 </List>
   )}
 
@@ -180,21 +122,8 @@ primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'g
 
 function mapStateToProp(state) {
   return ({
-<<<<<<< HEAD
-    histor:state.root.getHis,
-  })
-}
-function mapDispatchToProp(dispatch) {
-  return ({
-
-  })
-}
-
-export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(Drawers));
-=======
     getHis:state.root.getHis,
   })
 }
 
 export default connect(mapStateToProp)(withStyles(styles)(Drawers));
->>>>>>> 516e2964963f299483665f8cceb151d9f4849ed2

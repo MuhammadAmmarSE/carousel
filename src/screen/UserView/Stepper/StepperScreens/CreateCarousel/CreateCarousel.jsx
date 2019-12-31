@@ -11,8 +11,6 @@ import { connect } from 'react-redux';
 const useStyles =makeStyles(theme => ({
   
 }));
-
-
 class CreateCarousel extends Component {
 
   constructor(props){

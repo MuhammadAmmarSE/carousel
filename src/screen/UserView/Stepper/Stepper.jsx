@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import CreateCarousel from './StepperScreens/CreateCarousel/CreateCarousel';
 import SelectData from './StepperScreens/SelectData/SelectData';
 import SelectTheme from './StepperScreens/SelectTheme/SelectTheme';
+import ThemeConfig from './StepperScreens/ThemeConfig/ThemeConfig'
 import './Stepper.css'
 const styles = theme => ({
     button: {
