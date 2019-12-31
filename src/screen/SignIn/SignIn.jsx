@@ -71,7 +71,7 @@ class SignIn extends Component {
   }
 
   SignIn()
-  {
+  { console.log('signin')
     const {email, password} = this.state;
     if(email==="")
     {
@@ -90,18 +90,18 @@ class SignIn extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
-
-          // this.props.history.push('/User')
-          // if (user.user.emailVerified === false) 
-          // {
-          //  this.props.history.push('/User/Verify')
-          // } 
-          // else {
-          //   this
-          //     .props
-          //     .history
-          //     .push('/User/Home')
-          // }
+// console.log('me')
+//           this.props.history.push('/User')
+//           if (user.user.emailVerified === false) 
+//           {
+//            this.props.history.push('/User/Verify')
+//           } 
+//           else {
+//             this
+//               .props
+//               .history
+//               .push('/User/Home')
+//           }
 
         })
         .catch((error) =>{

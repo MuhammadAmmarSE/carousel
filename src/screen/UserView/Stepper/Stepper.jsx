@@ -31,10 +31,20 @@ const styles = theme => ({
         super(props)
         this.state={
             activeStep:0,
-            skipped:new Set(),
+            Name:'',
+            Url:'',
+            Data:[],
+            // [    first  object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}] 
+            //      second object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]  
+           //       third  object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]
+           //       ...                                                                  
+           //                                                                            ]
+           selectedData:[],
+           Placement:[{Title:'',Heading:'',Description:''}]
+
         }
     this.setActiveStep=this.setActiveStep.bind(this);
-    this.setSkipped=this.setSkipped.bind(this);
+    
     }
     handleBack = () => {
         this.setActiveStep(this.state.activeStep - 1);
@@ -55,11 +65,7 @@ const styles = theme => ({
             activeStep:ab
         })
     }
-    setSkipped(ac){
-        this.setState({
-            skipped:ac
-        })
-    }
+   
      getStepContent(step) {
       switch (step) {
         case 0:
@@ -80,8 +86,8 @@ const styles = theme => ({
             this.setActiveStep(0);
         };
     return (
-      <div style={{background:'white',width:'85%',marginLeft:'210px'}}>
-        <div style={{marginTop:50}}>
+      <div style={{background:'#E5E5E5',width:'calc(100% - 240px)',marginLeft:'240px'}}>
+        <div >
 
         <Stepper activeStep={this.state.activeStep} >
           {steps.map((label, index) => {

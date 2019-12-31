@@ -16,7 +16,7 @@ class UserView extends Component {
     checkUser=()=>{
 
       var db = firebase.firestore();
-      const user= this.props.getUser;
+      const user=  firebase.auth().currentUser;;
     const global = this;
       db.collection("Users").doc(user.uid).get().then( function (doc){
         if (doc.exists) {
@@ -63,16 +63,21 @@ class UserView extends Component {
     componentDidMount()
     { 
       const { histor} = this.props;
-
-      if(this.props.getUser)
+      var user = firebase.auth().currentUser;
+      if(user)
       {
          
-        if(this.props.getUser.emailVerified===true)
+        if(user.emailVerified===true)
         { 
           this.checkUser();
-          if(histor.location.pathname==='/User/Verify')
+          let path=histor.location.pathname;
+          if(path==='/User/Verify')
           {
-            histor.push('./Home')
+            histor.push('/User/Home')
+          }
+          else if (path==="/User")
+          {
+            histor.push('/User/Home')
           }
         }
         else

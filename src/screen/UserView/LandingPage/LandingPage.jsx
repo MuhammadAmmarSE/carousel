@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import  firebase from '../../../helper/firebase';
+import firebase from '../../../helper/firebase';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -11,190 +11,241 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 const drawerWidth = 240;
 
-const styles = theme=> ({
+const styles = theme => ({
   root: {
     display: 'flex',
+    
+    
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 1
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    transition: theme
+      .transitions
+      .create([
+        'margin', 'width'
+      ], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      })
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   hide: {
-    display: 'none',
+    display: 'none'
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
+    transition: theme
+      .transitions
+      .create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      }),
+    marginLeft: -drawerWidth
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
+    transition: theme
+      .transitions
+      .create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      }),
+    marginLeft: 0
   },
   card: {
     width: 320,
-    marginTop:100,
-    marginLeft:'250px',marginRight:'-200px',
+    marginTop: 100,
+    marginLeft: '250px',
+    marginRight: '-200px'
   },
   media: {
-    height: 140,
+    height: 140
   },
-  textStyle:{
-    textAlign:'left'
-    }
+  textStyle: {
+    textAlign: 'left'
+  }
 });
-
-
 
 class LandingPage extends Component {
   constructor(props) {
-      super(props);
-      this.state = { 
-        mydata:[],
-       }
+    super(props);
+    this.state = {
+      mydata: [],
+      Response: false
+    }
   }
 
-
-
-  GetData=()=>{
-    const user= this.props.getUser;
+  GetData = () => {
+    this.setState({Response: false, mydata: []});
+    const user = this.props.getUser;
     var db = firebase.firestore();
-    db.collection('Users').doc(user.uid).collection("Themes").get().then((querySnapshot) => {
-      var data=[]
-      if(querySnapshot.docs.length>0)
-      {
-        querySnapshot.forEach((doc) => {
-          let newobject={'Name':doc.data().Name,'Thumbnail':doc.data().Thumbnail,'Noc':doc.data().Noc}
-          data.push(newobject)
+    db
+      .collection('Users')
+      .doc(user.uid)
+      .collection("Themes")
+      .get()
+      .then((querySnapshot) => {
+        var data = []
+        if (querySnapshot.docs.length > 0) {
+          querySnapshot.forEach((doc) => {
+            let newobject = {
+              'Name': doc
+                .data()
+                .Name,
+              'Thumbnail': doc
+                .data()
+                .Thumbnail,
+              'Noc': doc
+                .data()
+                .Noc
+            }
+            data.push(newobject)
+          });
+        }
+        this.setState({mydata: data, Response: true})
       });
-      }
-      this.setState({mydata:data})
-  });
 
   }
-  componentDidMount(){
-    if(this.props.getUser)
-    {
+  CreateCarousel() {
+    this
+      .props
+      .history
+      .push('/Carousel');
+  }
+  componentDidMount() {
+    if (this.props.getUser) {
       this.GetData()
     }
-  
+
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.getUser !== prevProps.getUser && this.props.getUser!==null) {
+    if (this.props.getUser !== prevProps.getUser && this.props.getUser !== null) {
       this.GetData()
-    }
-    else{
+    } else {
       console.log('user not found')
     }
   }
-  
-  CreateCarousel(){
-    this.props.history.push('/Manage');
+
+  render() {
+    const {classes} = this.props;
+    return (
+      <div className={classes.root}>
+
+        {this.state.Response==true?
+          <div style={{
+            flexDirection: 'row'
+          }}>
+
+            {this.state.mydata.length === 0
+              ? <div
+                  style={{
+                  marginTop: '20%',
+                  marginLeft: '450px'
+                }}>
+                  <h3 style={{
+                    marginLeft: '60px'
+                  }}>No Carousel Yet !</h3>
+                  <Button
+                    variant="contained"
+                    onClick={this
+                    .CreateCarousel
+                    .bind(this)}
+                    color="primary">
+                    Want To create a Carousel
+                  </Button>
+                </div>
+              : <Grid container direction="row">
+
+                {this
+                  .state
+                  .mydata
+                  .map((item, i) => {
+
+                    return <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image={item.Thumbnail}
+                          title="Contemplative Reptile"/>
+                        <CardContent>
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="h2"
+                            className={classes.textStyle}>
+                            {item.Name}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                            className={classes.textStyle}>
+                            Number Of Cards : {item.Noc}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          Share
+                        </Button>
+                        <Button size="small" color="primary">
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  })}
+              </Grid>
+  }
+          </div>:
+          
+          <div style={{background:'',position: 'fixed',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>
+          <Loader
+          type="RevolvingDot"
+          color="#00BFFF"
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+          />
+         
+        </div>
   }
 
-  render() { 
-    const { classes } = this.props;
-    return ( 
-<div style={{}}className={classes.root}>
-
-<div style={{flexDirection:'row',}}>
-
-{
-  this.state.mydata.length ===0 ?
-  <div style={{marginTop:'20%',marginLeft:'450px' }}>
-   <h3 style={{marginLeft:'60px'}}>No Carousel Yet !</h3>
-   <Button variant="contained" onClick={this.CreateCarousel.bind(this)} color="primary">
-  Want To create a Carousel
-</Button>
-      </div>:
-
-<Grid
-  container
-  direction="row"
->
-
-{this.state.mydata.map((item,i)=>{
- 
-  return <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={item.Thumbnail}
-          title="Contemplative Reptile"
-          />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.textStyle}>
-          {item.Name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" className={classes.textStyle}>
-          Number Of Cards : {item.Noc} 
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-      })} 
- </Grid>
+      </div>
+    );
+  }
 }
-    </div>
-     
-    </div>
-  );
-}
-}
-
 
 function mapStateToProp(state) {
-  return ({
-    getUser:state.root.setUser,
-  })
+  return ({getUser: state.root.setUser})
 }
 function mapDispatchToProp(dispatch) {
-  return ({
-     
-  })
+  return ({})
 }
 
-export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(LandingPage));
+export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(LandingPage));

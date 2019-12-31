@@ -1,5 +1,4 @@
 import ActionTypes from '../constant/constant';
-import { func } from 'prop-types';
 
 
 export  function setUser(info){
