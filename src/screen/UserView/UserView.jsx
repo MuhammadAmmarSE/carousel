@@ -16,21 +16,22 @@ class UserView extends Component {
     checkUser=()=>{
 
       var db = firebase.firestore();
-      const user= this.props.getUser;
+      const user=  firebase.auth().currentUser;;
     const global = this;
       db.collection("Users").doc(user.uid).get().then( function (doc){
         if (doc.exists) {
           var data = {
-            name: doc.name,
-            LastLogin:doc.LastLogin,
-            MemberType:doc.MemberType,
-            UserSince:doc.UserSince,
-            credits:doc.credits,
-            email:doc.email,
+            name: doc.data().name,
+            LastLogin:doc.data().LastLogin,
+            MemberType:doc.data().MemberType,
+            UserSince:doc.data().UserSince,
+            credits:doc.data().credits,
+            email:doc.data().email,
           }
           global.props.userData(data);
       } 
       else {
+
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         db.collection("Users").doc(user.uid).set({
@@ -43,12 +44,12 @@ class UserView extends Component {
       })
       .then(function() {
         var data = {
-          name: user.displayName,
+          name: user.data().displayName,
           LastLogin:date,
           MemberType:'guest',
           UserSince:date,
           credits:0,
-          email:user.email
+          email:user.data().email
         }
         this.props.userData(data);
       })
@@ -63,16 +64,21 @@ class UserView extends Component {
     componentDidMount()
     { 
       const { histor} = this.props;
-
-      if(this.props.getUser)
+      var user = firebase.auth().currentUser;
+      if(user)
       {
          
-        if(this.props.getUser.emailVerified===true)
+        if(user.emailVerified===true)
         { 
           this.checkUser();
-          if(histor.location.pathname==='/User/Verify')
+          let path=histor.location.pathname;
+          if(path==='/User/Verify')
           {
-            histor.push('./Home')
+            histor.push('/User/Home')
+          }
+          else if (path==="/User")
+          {
+            histor.push('/User/Home')
           }
         }
         else

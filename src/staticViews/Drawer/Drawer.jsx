@@ -4,7 +4,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import ViewCarouselIcon from '@material-ui/icons/ViewCarousel';
+import HomeIcon from '@material-ui/icons/Home';
 import Settings from '@material-ui/icons/Settings';
 import Person from '@material-ui/icons/Person';
 import List from '@material-ui/core/List';
@@ -53,7 +54,7 @@ const styles = theme=> ({
 });
 
 const DrawerList=['Home' , 'Carousel', 'Profile', 'Settings'];
-const DrawerListIcon=[ <MailIcon color='primary'/> , <MailIcon color='primary'/>, <Person color='primary'/>, <Settings color='primary'/>];
+const DrawerListIcon=[ <HomeIcon color='primary'/> , <ViewCarouselIcon color='primary'/>, <Person color='primary'/>, <Settings color='primary'/>];
 
 
 class Drawers extends Component {
@@ -61,7 +62,7 @@ class Drawers extends Component {
       super(props);
       this.state={
           open:true,
-          visibles:false
+          active:null,
       }
       this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
       this.handleDrawerClose=this.handleDrawerClose.bind(this);
@@ -74,38 +75,37 @@ class Drawers extends Component {
 handleDrawerClose()
 {
     this.setState({open:false})
-
 }
 
 render(){
 const {classes}=this.props;
+const path=this.props.getHis.location.pathname;
   return (
     <div >
-
-<Drawer
-className={classes.drawer}
-variant="persistent"
-anchor="left"
-open={this.state.open}
-classes={{
-  paper: classes.drawerPaper,
-}}
->
+      <Drawer
+      className={classes.drawer}
+      variant="persistent"
+      anchor="left"
+      open={this.state.open}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      >
 
     <Divider style={{marginTop:'64px'}}/>
 
     { DrawerList.map((item,index)=>
 
-<List key={index}>            
-<ListItem button 
-//onClick={this.Home.bind(this)} 
->
+      <List key={index} onClick={()=>{this.props.getHis.push('/User/'+item); this.setState({active:item}) } }>            
+      <ListItem button 
+      //onClick={this.Home.bind(this)} 
+      >
 <ListItemIcon>{DrawerListIcon[index]}</ListItemIcon>
 
 
   <ListItemText
   disableTypography
-    primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>{DrawerList[index]}</Typography>}
+    primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:path==="/User/"+item?'#3F51B5':'grey' }}>{item}</Typography>}
   />
 </ListItem>
 </List>

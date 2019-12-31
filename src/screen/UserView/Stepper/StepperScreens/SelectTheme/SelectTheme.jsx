@@ -74,13 +74,14 @@ ControlledCarousel() {
   return (
     <Carousel activeIndex={this.state.index} direction={this.state.direction} 
     onSelect={handleSelect}
+    style={{}}
     >
       <Carousel.Item >
       <img
             className="d-block w-100"
             src={require("../../../../../Assets/SliderOne.PNG")}
             alt="First slide"
-            style={{padding:10,width:300,height:500,backgroundColor:'black'}}
+            style={{width:'100%',height:400}}
             />
       </Carousel.Item>
       <Carousel.Item>
@@ -88,7 +89,7 @@ ControlledCarousel() {
             className="d-block w-100"
             src={require("../../../../../Assets/SliderFour.PNG")}
             alt="First slide"
-            style={{width:300,height:500}}
+            style={{width:'100%',height:400}}
           />
       </Carousel.Item>
     </Carousel>
@@ -99,20 +100,20 @@ ControlledCarousel() {
   render(){
   const {classes}=this.props;
   return (
-    <div style={{background:this.state.colorback}}>
-<div style={{width:"80%" ,marginLeft:'12%', height:'50%'}}>
+    <div style={{background:this.state.colorback,minHeight:'calc(100vh - 146px)'}}>
+<div style={{width:"90%" , height:'40%'}}>
 {this.ControlledCarousel()}
 </div>
     <br />
-    <div style={{width:'90%',marginLeft:'5%'}}>
+    <div style={{width:'90%',}}>
         <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{float:'left',height:40,width:'10%',borderRadius:20,marginLeft:'2%',marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'left',height:40,width:'10%',borderRadius:20,marginLeft:'3%'}}
     onClick={this.props.back}
     >
         back
       </Button>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'10%',marginTop:20,borderRadius:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'10%',borderRadius:20}}
     onClick={this.handleNext.bind(this)}
     >
         next
