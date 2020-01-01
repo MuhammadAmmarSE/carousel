@@ -85,9 +85,9 @@ const styles = theme => ({
      getStepContent(step) {
       switch (step) {
         case 0:
-          return <CreateCarousel back={this.handleBack} next={this.handleNext} handleNext={this.CChandleNext.bind(this)}/>;
+          return <CreateCarousel back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
           case 1:
-            return <SelectData back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
+            return <SelectData back={this.handleBack} next={this.handleNext}/>;
             case 2:
               return <SelectTheme back={this.handleBack} next={this.handleNext}/>;
               case 3:
@@ -116,7 +116,7 @@ const styles = theme => ({
                 <StepLabel {...labelProps}>
                  
                 <div 
-                style={{backgroundImage: "url("+img1+")",width: '170px',height: '50px',marginTop:-2}}
+                style={{backgroundImage: "url("+img1+")",width: '170px',height: '50px',marginTop:-15}}
                 // className='div'
                 >
       <p className='hfive'>

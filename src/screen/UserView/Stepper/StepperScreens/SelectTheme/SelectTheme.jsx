@@ -124,16 +124,7 @@ ControlledCarousel() {
 }
 }
 
-function mapStateToProp(state) {
-  return ({
-    
-  })
-}
-function mapDispatchToProp(dispatch) {
-  return ({
 
-  })
-}
 
-export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(SelectTheme));
+export default withStyles(styles)(SelectTheme);
 
