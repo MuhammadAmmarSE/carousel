@@ -54,7 +54,8 @@ const styles = theme=> ({
 });
 
 const DrawerList=['Home' , 'Carousel', 'Profile', 'Settings'];
-const DrawerListIcon=[ <HomeIcon color='primary'/> , <ViewCarouselIcon color='primary'/>, <Person color='primary'/>, <Settings color='primary'/>];
+const DrawerListIcon=[ <HomeIcon color='#b4b3b3'/>,<ViewCarouselIcon color='#b4b3b3'/>, <Person color='#b4b3b3'/>, <Settings color='#b4b3b3'/>];
+const DrawerListIconActive=[ <HomeIcon color='primary'/> , <ViewCarouselIcon color='primary'/>, <Person color='primary'/>, <Settings color='primary'/> ];
 
 
 class Drawers extends Component {
@@ -100,12 +101,12 @@ const path=this.props.getHis.location.pathname;
       <ListItem button 
       //onClick={this.Home.bind(this)} 
       >
-<ListItemIcon>{DrawerListIcon[index]}</ListItemIcon>
+<ListItemIcon>{path==="/User/"+item?DrawerListIconActive[index]:DrawerListIcon[index]}</ListItemIcon>
 
 
   <ListItemText
   disableTypography
-    primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:path==="/User/"+item?'#3F51B5':'grey' }}>{item}</Typography>}
+    primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:path==="/User/"+item?'#3F51B5':'#b4b3b3' }}>{item}</Typography>}
   />
 </ListItem>
 </List>

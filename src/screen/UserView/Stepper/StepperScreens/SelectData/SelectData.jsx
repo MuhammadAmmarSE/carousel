@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Input, Select } from 'react-spreadsheet-grid'
+import { Grid, Input } from 'react-spreadsheet-grid'
 
 const styles = theme=> ({
 
 });
 
-const rows=[
-  { id: '1', name: 'Blog Title', ExtractedData: 'ExtractedData',selectData:null,names:''},
-  { id: '2', name: 'Blog Heading', ExtractedData: 'sadsd',selectData:null ,names:''},
-  { id: '3', name: 'Blog Description', ExtractedData: 'asdasd',selectData:null,names:'' },
-  
-];
+const data = [
+
+[   { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+],
+[   { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+],
+[   { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+],
+
+
+
+]
+
+const rows=data[0];
 
 class SelectData extends Component {
 
@@ -30,6 +43,7 @@ class SelectData extends Component {
 }
 
 onFieldChange(rowId, field, value) {
+  console.log(rowId,field,value)
   const row = rows.find(({ id }) => id === rowId);
    row[field] = value;
   this.setState({
@@ -40,6 +54,14 @@ onFieldChange(rowId, field, value) {
 
 
 handleNext = () => {
+  data.map((row,index)=>{
+
+    for(let i=0;i<row.length;i++)
+    {
+      row[i].name=this.state.rows[i].name;
+    }
+  })
+  this.props.handleNext(data);
   this.props.next()
 };
 initColumns() {
@@ -49,23 +71,24 @@ initColumns() {
       value: (row, { focus }) => {
           return (
               <Input  
-placeholder='Enter Name'
+placeholder={'Heading '+ row.id}
                 value={row.name}
                 focus={focus}
                 style={{fontWeight:'bold'}}
+                onChange={this.onFieldChange.bind( this,row.id, 'name')}
               />
           );
       }
     }, {
       id: 'ExtractedData',
       title: () => 'Extracted Data',
-      value: (rows, { focus } ) => {
+      value: (row, { focus } ) => {
           return (
               <Input  
-                value={rows.ExtractedData}
+                value={row.ExtractedData}
                 isOpen={focus}
                 style={{color:'gray'}}
-                onChange={this.onFieldChange.bind( this,rows.id, 'ExtractedData')}
+                onChange={this.onFieldChange.bind( this,row.id, 'ExtractedData')}
 
               />
           );
@@ -77,26 +100,20 @@ placeholder='Enter Name'
   render(){
   return (
    
-<<<<<<< HEAD
-    <div style={{width:'90%',marginLeft:'5%',minHeight:'calc(100vh - 146px)'}}>
-<div style={{maxHeight:'72%'}}>
-<h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
-  <iframe class='iframes' style={{marginLeft:0}} height="45%" width="95%" src=''></iframe>
-  <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
-<div style={{height:'40%',width:'95%',marginTop:0}}>
-  
-=======
-    <div style={{width:'90%',marginLeft:'5%',height:'calc(100vh - 146px)'}}>
-<div style={{height:'85%'}}>
-  <div style={{height:"40%"}}>
-  <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
-          <iframe class='iframes' height='80%' width="95%" src=''></iframe>
-  </div>
-<div style={{height:'50%',width:'95%',position:'relative'}}>
-<div  style={{width:'100%',}}>
-        <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
+    <div style={{background:'#F7F8FC',width:'100%',height:'calc(100vh - 144px)'}}>
 
->>>>>>> 24d23263febbfda939e37e33456466a66cfa0a90
+<div style={{width:'90%',marginLeft:'5%',height:'100%'}} >
+
+
+<div style={{height:'90%',paddingTop:'10px'}}>
+  <div style={{height:"50%"}}>
+  <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</span>
+          <iframe title="Website" className='iframes' height='80%' width="100%" src=''></iframe>
+  </div>
+<div style={{height:'50%',width:'100%',position:'relative'}}>
+<div  style={{width:'100%'}}>
+        <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</span>
+
 <Grid 
                 columns={this.state.columns}
                 rows={this.state.rows}
@@ -105,41 +122,37 @@ placeholder='Enter Name'
                 />
 </div>
 </div>
-    <br />
+    <br /> 
     </div> 
-    {/* //72% end/ */}
-    <div style={{width:'95%',height:'10%',marginTop:'0px'}}>
+
+
+    
+    <div style={{width:'100%',height:'10%',background:'',paddingTop:'5px'}}>
 
         <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{float:'left',width:'10%',height:40,borderRadius:20,marginLeft:0,marginTop:20,marginBottom:0}}
+    variant="contained" color="primary"  size="large"  style={{float:'left',width:'10%',height:40,borderRadius:20,marginLeft:0,marginBottom:0}}
     
     onClick={this.props.back}
     >
         back
       </Button>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'10%',borderRadius:20,marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'10%',borderRadius:20}}
     
     onClick={this.handleNext.bind(this)}
     >
         next
       </Button>
     </div>
+
+    </div>
+
     </div>
   )
 }
 }
 
-function mapStateToProp(state) {
-  return ({
-  
-  })
-}
-function mapDispatchToProp(dispatch) {
-  return ({
 
-  })
-}
 
-export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(SelectData));
+export default withStyles(styles)(SelectData);
 

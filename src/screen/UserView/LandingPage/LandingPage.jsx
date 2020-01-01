@@ -157,7 +157,7 @@ class LandingPage extends Component {
     return (
       <div className={classes.root}>
 
-        {this.state.Response==true?
+        {this.state.Response===true?
           <div style={{
             flexDirection: 'row'
           }}>
@@ -212,10 +212,10 @@ class LandingPage extends Component {
                       </CardActionArea>
                       <CardActions>
                         <Button size="small" color="primary">
-                          Share
+                          View
                         </Button>
                         <Button size="small" color="primary">
-                          Learn More
+                          Edit Theme
                         </Button>
                       </CardActions>
                     </Card>

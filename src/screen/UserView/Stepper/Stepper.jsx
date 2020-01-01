@@ -53,16 +53,16 @@ const styles = theme => ({
         this.setActiveStep(this.state.activeStep - 1);
     };
     handleNext = () => {
-     if(this.props.carousalName == ''){
+     if(this.props.carousalName === ''){
        alert('Enter Carousel Name')
      }
-     else if(this.props.url ==''){
+     else if(this.props.url ===''){
       alert('Enter URL')
     }
     else{
       this.setActiveStep(this.state.activeStep + 1);
     }
-    };
+    }
 
 
     setActiveStep(step)
@@ -85,9 +85,9 @@ const styles = theme => ({
      getStepContent(step) {
       switch (step) {
         case 0:
-          return <CreateCarousel back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
+          return <CreateCarousel back={this.handleBack} next={this.handleNext}  handleNext={this.CChandleNext.bind(this)}/>;
           case 1:
-            return <SelectData back={this.handleBack} next={this.handleNext}/>;
+            return <SelectData back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
             case 2:
               return <SelectTheme back={this.handleBack} next={this.handleNext}/>;
               case 3:
@@ -107,7 +107,7 @@ const styles = theme => ({
       <div style={{minHeight:'calc(100vh - 146px)',background:'#e5e5e5',width:'calc(100% - 240px)',marginLeft:'240px',}}>
         <div >
 
-        <Stepper activeStep={this.state.activeStep} style={{height:'80px'}}>
+        <Stepper activeStep={this.state.activeStep} style={{background:'',height:'80px'}}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -142,7 +142,7 @@ const styles = theme => ({
             </div>
           ) : (
             <div>
-              <Typography className={classes.instructions}>{this.getStepContent(this.state.activeStep)}</Typography>
+              <span style={{background:'yellow'}}>{this.getStepContent(this.state.activeStep)}</span>
             </div>
           )}
         </div>

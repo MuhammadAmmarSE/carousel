@@ -48,7 +48,7 @@ class ThemeConfig extends Component {
 
 handle(e,name,index)
     {
-var name = name
+
 let newlist=this.state.list;
 if(e.target.value === 'No'){
   newlist[index].value=0;
@@ -70,7 +70,7 @@ else{
         var global=this;
         var newlist=this.state.list;
         var news = rowss[this.state.selectedTheme].values;
-        rowss[this.state.selectedTheme].map(function(d, index){
+        rowss[this.state.selectedTheme].map((d, index)=>{
           newlist.push({ name:d.Name,value:0,id:index+1})
            global.setState({
                 [d.state]:[d.Name],
@@ -173,12 +173,13 @@ Next=()=>{
     render() { 
         const {classes}=this.props;
         return ( 
-        <div style={{width:'90%',marginLeft:'5%',height:'calc(100vh - 156px)'}}>
-<div style={{height:'45%'}}>
+        <div style={{width:'90%',marginLeft:'5%',background:'',height:'calc(100vh - 144px)'}}>
+
+<div style={{height:'45%',background:'green',paddingTop:'10px'}}>
 {rowss[1].map(function(d, index){
     return (
       <div >
-      <h5 style={{marginLeft:0,color:'#3f51b5',marginTop:10,fontSize:14,fontWeight:'bold'}}>{d.Name}</h5>
+      <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>{d.Name}</span>
       <select style={{marginLeft:0,width:'40%',height:40}} class="form-control" id="exampleFormControlSelect1" 
        onChange={(e)=>{this.handle(e,d.Name,index)}}
       >
@@ -194,20 +195,22 @@ Next=()=>{
     )
   },this)}
 </div>
-<div style={{position:'relative',height:'40%',width:'95%',marginTop:0}}>
 
-<div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
+
+<div style={{height:'45%',width:'100%',marginTop:0}}>
+
+<div  style={{width:'100%'}}>
 <Grid 
-                columns={this.state.columns}
-                rows={this.state.rows}
-                getRowKey={row => row.id}
-                blurCurrentFocus={this.state.blurCurrentFocus}
-                />
-                </div>
+  columns={this.state.columns}
+  rows={this.state.rows}
+  getRowKey={row => row.id}
+  blurCurrentFocus={this.state.blurCurrentFocus}
+  />
+  </div>
 
 </div>
    
-          <div style={{height:'10%',width:'95%',marginTop:20}}>
+          <div style={{background:'',height:'10%',width:'100%',paddingTop:'5px'}}>
 
 <Button type="submit"
 variant="contained" color="primary"  size="large"  style={{float:'left',height:40,width:'10%',borderRadius:20,marginTop:0}}
