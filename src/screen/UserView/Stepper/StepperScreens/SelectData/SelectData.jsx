@@ -86,7 +86,7 @@ placeholder='Enter Name'
 <div style={{height:'50%',width:'95%',position:'relative'}}>
 <div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
         <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
-  
+
 <Grid 
                 columns={this.state.columns}
                 rows={this.state.rows}
