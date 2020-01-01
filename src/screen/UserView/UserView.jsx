@@ -33,6 +33,7 @@ class UserView extends Component {
           global.props.userData(data);
       } 
       else {
+
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         db.collection("Users").doc(user.uid).set({
@@ -45,12 +46,12 @@ class UserView extends Component {
       })
       .then(function() {
         var data = {
-          name: user.displayName,
+          name: user.data().displayName,
           LastLogin:date,
           MemberType:'guest',
           UserSince:date,
           credits:0,
-          email:user.email
+          email:user.data().email
         }
         this.props.userData(data);
       })

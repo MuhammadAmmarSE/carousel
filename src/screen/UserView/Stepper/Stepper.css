@@ -1,13 +1,14 @@
 
 .div {
-  width: 160px;
+  /* width: 160px;
   height: 40px;
   top:-6px;
   left: 5px;
   position: relative;
   background: #3f51b5;text-align: center;color: floralwhite;
+  background-image: url('./StepperScreens/CreateCarousel/stepper.png'); */
 }
-.div::after {
+/* .div::after {
   content: "";
   position: absolute;
   left: 0;
@@ -29,10 +30,12 @@
   border-left: 20px solid #3f51b5;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;text-align: center;color: floralwhite;
-}
+} */
 .hfive{
-  padding-top: 10px;
+  padding-top: 20px;
   padding-left: 15px;
   margin-left: 5px;
+  color:white;
+  font-weight: bold;
  
 }

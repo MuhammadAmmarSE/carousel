@@ -12,8 +12,6 @@ import Image from './stepper.png';
 const useStyles =makeStyles(theme => ({
   
 }));
-
-
 class CreateCarousel extends Component {
 
   constructor(props){
@@ -31,8 +29,8 @@ class CreateCarousel extends Component {
         carousalName: this.state.carousalName,
         url: this.state.url,
     }
+
     })
-    
 }
 submit(ev){
   ev.preventDefault()
@@ -42,6 +40,7 @@ componentWillUnmount(){
 }
 Next=()=>{
   if(this.state.carousalName !='' && this.state.url !=''){
+    this.props.handleNext(this.state.carousalName,this.state.url);
     this.props.next();
   }
   else{
@@ -49,9 +48,8 @@ Next=()=>{
   }
 }
   render(){
-   console.log(this.props.email,'props')
   return (
-    <div className="App" style={{marginLeft:'350px'}}>
+    <div className="App" style={{marginLeft:'350px',height:'calc(100hv - 80px)'}}>
 <h2 style={{color:'#3f51b5'}}><b>Lets Start Creating a Carousel</b></h2>
     <form 
      noValidate autoComplete="off" onSubmit={this.submit.bind(this)}>
@@ -74,7 +72,7 @@ Next=()=>{
         margin="normal"
         variant="outlined"
       />
-      <img src={Image}/>
+      {/* <img src={Image}/> */}
     </CardContent>
        <Button type="submit"
     variant="contained" color="primary"  size="large"  style={{width:'40%',marginTop:20,marginLeft:'40px'}}

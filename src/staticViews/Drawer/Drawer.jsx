@@ -77,7 +77,6 @@ handleDrawerClose()
     this.setState({open:false})
 }
 
-
 render(){
 const {classes}=this.props;
 const path=this.props.getHis.location.pathname;

@@ -12,6 +12,7 @@ const rows=[
   { id: '1', name: 'Blog Title', ExtractedData: 'ExtractedData',selectData:null,names:''},
   { id: '2', name: 'Blog Heading', ExtractedData: 'sadsd',selectData:null ,names:''},
   { id: '3', name: 'Blog Description', ExtractedData: 'asdasd',selectData:null,names:'' },
+  
 ];
 
 class SelectData extends Component {
@@ -76,24 +77,27 @@ placeholder='Enter Name'
   render(){
   return (
    
-    <div style={{width:'90%',marginLeft:'5%'}}>
-
-<h4 style={{marginLeft:'5%',color:'#3f51b5'}}>Select and Unselect data for your Blog</h4>
-        <iframe class='iframes' style={{marginLeft:'3%'}} height="300px" width="95%" src={this.props.url}></iframe>
-        <h4 style={{marginLeft:'5%',color:'#3f51b5'}}>Selected Data for your Blog</h4>
-
+    <div style={{width:'90%',marginLeft:'5%',minHeight:'calc(100vh - 146px)'}}>
+<div style={{maxHeight:'72%'}}>
+<h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
+        <iframe class='iframes' style={{marginLeft:0}} height="45%" width="95%" src=''></iframe>
+        <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
+<div style={{height:'40%',width:'95%',marginTop:0}}>
+  
 <Grid 
                 columns={this.state.columns}
                 rows={this.state.rows}
                 getRowKey={row => row.id}
                 blurCurrentFocus={this.state.blurCurrentFocus}
-            />
+                />
 
+</div>
     <br />
-    <div >
+    </div>
+    <div style={{width:'95%',marginTop:'0px'}}>
 
         <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{float:'left',width:'10%',height:40,borderRadius:20,marginLeft:'2%',marginTop:20,marginBottom:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'left',width:'10%',height:40,borderRadius:20,marginLeft:0,marginTop:20,marginBottom:0}}
     
     onClick={this.props.back}
     >
