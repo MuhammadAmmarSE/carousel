@@ -20,14 +20,16 @@ class UserView extends Component {
     const global = this;
       db.collection("Users").doc(user.uid).get().then( function (doc){
         if (doc.exists) {
+          
           var data = {
-            name: doc.name,
-            LastLogin:doc.LastLogin,
-            MemberType:doc.MemberType,
-            UserSince:doc.UserSince,
-            credits:doc.credits,
-            email:doc.email,
+            name: doc.data().name,
+            LastLogin:doc.data().LastLogin,
+            MemberType:doc.data().MemberType,
+            UserSince:doc.data().UserSince,
+            credits:doc.data().credits,
+            email:doc.data().email,
           }
+          
           global.props.userData(data);
       } 
       else {

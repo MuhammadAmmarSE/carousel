@@ -148,7 +148,7 @@ class LandingPage extends Component {
     if (this.props.getUser !== prevProps.getUser && this.props.getUser !== null) {
       this.GetData()
     } else {
-      console.log('user not found')
+      
     }
   }
 

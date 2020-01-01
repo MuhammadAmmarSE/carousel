@@ -15,7 +15,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import { connect } from 'react-redux';
 import firebase from '../../helper/firebase';
-import {setUser,userData} from '../../helper/redux/store/action/action';
+import {setUser} from '../../helper/redux/store/action/action';
 
 import './SignIn.css';
 
@@ -282,7 +282,6 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
     setUser: (user) => { dispatch(setUser(user)) },
-    userData: (data) => {dispatch(userData(data))},
   })
 }
 export default connect(mapStateToProp, mapDispatchToProp)(withStyles(style)(SignIn));

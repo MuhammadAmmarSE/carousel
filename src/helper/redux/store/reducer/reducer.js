@@ -58,12 +58,13 @@ export default (state = INITIAL_STATE, action) => {
                 case ActionTypes.userData:
                     return({
                         ...state,
-                        userDataname:action.payload.name,
-                        userDataLastLogin:action.payload.LastLogin,
-                        userDataMemberType:action.payload.MemberType,
-                        userDataUserSince:action.payload.UserSince,
-                        userDatacredits:action.payload.credits,
-                        userDataemail:action.payload.email,
+                        userData:action.payload,
+                        // userDataname:action.payload.name,
+                        // userDataLastLogin:action.payload.LastLogin,
+                        // userDataMemberType:action.payload.MemberType,
+                        // userDataUserSince:action.payload.UserSince,
+                        // userDatacredits:action.payload.credits,
+                        // userDataemail:action.payload.email,
                     })
                 
         default:

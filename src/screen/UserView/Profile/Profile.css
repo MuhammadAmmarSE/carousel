@@ -1,0 +1,17 @@
+.ProfileBlock
+{
+    display: block;
+    background-color: '';
+    vertical-align: bottom;
+}
+
+.ProfileText1
+{
+    vertical-align: auto;
+}
+
+.ProfileIcon1
+{
+    padding-left: 20px;
+    vertical-align: baseline;
+}
