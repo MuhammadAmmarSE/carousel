@@ -208,14 +208,16 @@ Next=()=>{
     )
   },this)}
 </div>
-<div style={{height:'40%',width:'95%',marginTop:0}}>
+<div style={{position:'relative',height:'40%',width:'95%',marginTop:0}}>
 
+<div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
 <Grid 
                 columns={this.state.columns}
                 rows={this.state.rows}
                 getRowKey={row => row.id}
                 blurCurrentFocus={this.state.blurCurrentFocus}
                 />
+                </div>
 
 </div>
    
