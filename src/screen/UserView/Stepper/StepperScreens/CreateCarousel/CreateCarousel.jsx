@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import Image from './stepper.png';
-
+import '../../Stepper.css';
 const useStyles =makeStyles(theme => ({
   
 }));
@@ -60,12 +60,12 @@ Next=()=>{
         name="carousalName" onChange={this.handleChange.bind(this)}
         margin="normal"
         variant="outlined"
-        style={{width:'40%',marginLeft:'30px'}}
+        style={{width:'40%',marginLeft:'60px'}}
       />
        </CardContent>
        <CardContent>
          <TextField
-         style={{width:'40%',marginLeft:'30px'}}
+         style={{width:'40%',marginLeft:'60px'}}
         id="outlined-name"
         label="Blog URL"
         name="url" onChange={this.handleChange.bind(this)}
@@ -75,7 +75,7 @@ Next=()=>{
       {/* <img src={Image}/> */}
     </CardContent>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'40%',marginTop:20,marginLeft:'40px'}}
+    variant="contained" color="primary"  size="large"  style={{width:'40%',marginTop:20,marginLeft:'70px'}}
 
     onClick={this.Next.bind(this)}
     >
@@ -85,7 +85,6 @@ Next=()=>{
       </Button>
          </form>
      
-
     </div>
    
   );

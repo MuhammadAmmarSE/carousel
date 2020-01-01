@@ -77,12 +77,15 @@ placeholder='Enter Name'
   render(){
   return (
    
-    <div style={{width:'90%',marginLeft:'5%',minHeight:'calc(100vh - 146px)'}}>
-<div style={{maxHeight:'72%'}}>
-<h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
-        <iframe class='iframes' style={{marginLeft:0}} height="45%" width="95%" src=''></iframe>
+    <div style={{width:'90%',marginLeft:'5%',height:'calc(100vh - 146px)'}}>
+<div style={{height:'85%'}}>
+  <div style={{height:"40%"}}>
+  <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
+          <iframe class='iframes' height='80%'  width="95%" src=''></iframe>
+  </div>
+<div style={{height:'50%',width:'95%',position:'relative'}}>
+<div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
         <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
-<div style={{height:'40%',width:'95%',marginTop:0}}>
   
 <Grid 
                 columns={this.state.columns}
@@ -90,11 +93,12 @@ placeholder='Enter Name'
                 getRowKey={row => row.id}
                 blurCurrentFocus={this.state.blurCurrentFocus}
                 />
-
+</div>
 </div>
     <br />
-    </div>
-    <div style={{width:'95%',marginTop:'0px'}}>
+    </div> 
+    {/* //72% end/ */}
+    <div style={{width:'95%',height:'10%',marginTop:'0px'}}>
 
         <Button type="submit"
     variant="contained" color="primary"  size="large"  style={{float:'left',width:'10%',height:40,borderRadius:20,marginLeft:0,marginTop:20,marginBottom:0}}
