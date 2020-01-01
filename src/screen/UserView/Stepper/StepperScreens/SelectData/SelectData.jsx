@@ -81,10 +81,10 @@ placeholder='Enter Name'
 <div style={{height:'85%'}}>
   <div style={{height:"40%"}}>
   <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
-          <iframe class='iframes' height='80%'  width="95%" src=''></iframe>
+          <iframe class='iframes' height='80%' width="95%" src=''></iframe>
   </div>
 <div style={{height:'50%',width:'95%',position:'relative'}}>
-<div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
+<div  style={{width:'100%',}}>
         <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
 
 <Grid 

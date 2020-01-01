@@ -81,7 +81,7 @@ ControlledCarousel() {
             className="d-block w-100"
             src={require("../../../../../Assets/SliderOne.PNG")}
             alt="First slide"
-            style={{width:'100%',height:400}}
+            style={{width:'90%',height:400,backgroundColor:'black',padding:5}}
             />
       </Carousel.Item>
       <Carousel.Item>
@@ -89,7 +89,7 @@ ControlledCarousel() {
             className="d-block w-100"
             src={require("../../../../../Assets/SliderFour.PNG")}
             alt="First slide"
-            style={{width:'100%',height:400}}
+            style={{width:'90%',height:400,backgroundColor:'black',padding:5}}
           />
       </Carousel.Item>
     </Carousel>
@@ -101,7 +101,7 @@ ControlledCarousel() {
   const {classes}=this.props;
   return (
     <div style={{background:this.state.colorback,minHeight:'calc(100vh - 146px)'}}>
-<div style={{width:"90%" , height:'40%'}}>
+<div style={{width:"85%" , height:'40%',marginLeft:'3%'}}>
 {this.ControlledCarousel()}
 </div>
     <br />

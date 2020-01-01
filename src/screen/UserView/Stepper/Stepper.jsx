@@ -63,23 +63,31 @@ const styles = theme => ({
       this.setActiveStep(this.state.activeStep + 1);
     }
     };
-    setActiveStep(ab){
-        this.setState({
-            activeStep:ab
-        })
+
+
+    setActiveStep(step)
+    {
+      this.setState({ activeStep:step })
     }
 
-    CChandleNext = (carousalName,url) => {
+    CChandleNext = (carousalName,url) => 
+    {
       this.setState({Name: carousalName,Url:url});
       console.log('cc', carousalName)
-  }
+    }
+
+    SDhandleNext = (data) =>
+    {
+      this.setState({Data:data});
+      console.log('sd', data)
+    }
    
      getStepContent(step) {
       switch (step) {
         case 0:
-          return <SelectData back={this.handleBack} next={this.handleNext}/>;
+          return <CreateCarousel back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
           case 1:
-            return <CreateCarousel back={this.handleBack} next={this.handleNext} handleNext={this.CChandleNext.bind(this)}/>;
+            return <SelectData back={this.handleBack} next={this.handleNext}/>;
             case 2:
               return <SelectTheme back={this.handleBack} next={this.handleNext}/>;
               case 3:
