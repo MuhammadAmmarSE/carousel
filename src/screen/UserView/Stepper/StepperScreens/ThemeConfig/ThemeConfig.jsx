@@ -3,27 +3,14 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Grid, Input,Select } from 'react-spreadsheet-grid'
 import { withStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 
 
 const styles=(theme => ({
 
 }));
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
 
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
 
 const rowss=[
      [ {Name :'Select Card',state:'Select_Card',values :[] },{Name:'Select Title',state:'Select_Header',values :['No','Yes']},  {Name:'Select Description',state:'Select_Footer',values :['No','Yes']} ],
@@ -53,7 +40,6 @@ class ThemeConfig extends Component {
         columns: this.initColumns(),
         age:'',
         list:[],
-        modalStyle:getModalStyle,
         open:false
         }
     
@@ -103,7 +89,7 @@ else{
     }
 
 
-// //////////
+
 
 onFieldChange(rowId, field, value) {
   const row = rows.find(({ id }) => id === rowId);
@@ -113,7 +99,7 @@ onFieldChange(rowId, field, value) {
       blurCurrentFocus: true
   });
 }
-onFieldChanges(rowId, field,name, value) {
+onFieldChanges(rowId, field, value) {
   const row = rows.find(({ id }) => id === rowId);
   let str=this.state.list[value-1].name
    row[field] = value;
@@ -133,7 +119,7 @@ initColumns() {
       value: (row, { focus }) => {
           return (
               <Input  
-placeholder='Enter Name'
+                placeholder='Enter Name'
                 value={row.name}
                 focus={focus}
                 style={{fontWeight:'bold'}}
@@ -167,7 +153,7 @@ placeholder='Enter Name'
                 isOpen={focus}
                 style={{color:'gray'}}
              
-                 onChange={this.onFieldChanges.bind( this,rows.id, 'selectData',this.state.list[rows.id-1])}
+                 onChange={this.onFieldChanges.bind( this,rows.id,this.state.list[rows.id-1])}
 
               />
           );

@@ -8,12 +8,27 @@ const styles = theme=> ({
 
 });
 
-const rows=[
-  { id: '1', name: 'Blog Title', ExtractedData: 'ExtractedData',selectData:null,names:''},
-  { id: '2', name: 'Blog Heading', ExtractedData: 'sadsd',selectData:null ,names:''},
-  { id: '3', name: 'Blog Description', ExtractedData: 'asdasd',selectData:null,names:'' },
-  
-];
+const data= [ 
+  [
+    { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+  ],
+  [
+    { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+  ],
+  [
+    { id: '1', name: '', ExtractedData: 'Extracted Data 1'},
+    { id: '2', name: '', ExtractedData: 'Extracted Data 2'},
+    { id: '3', name: '', ExtractedData: 'Extracted Data 3'},
+  ],
+]
+
+const rows=data[0];
+
+
 
 class SelectData extends Component {
 
@@ -29,7 +44,9 @@ class SelectData extends Component {
 
 }
 
-onFieldChange(rowId, field, value) {
+onFieldChange(rowId,field,value) {
+
+console.log(rowId,field,value)
   const row = rows.find(({ id }) => id === rowId);
    row[field] = value;
   this.setState({
@@ -40,19 +57,29 @@ onFieldChange(rowId, field, value) {
 
 
 handleNext = () => {
-  this.props.next()
+
+  data.map((row,index)=>{
+
+   for(let i=0;i<row.length;i++)
+   {
+     row[i].name=this.state.rows[i].name
+   }
+  })
+  this.props.handleNext(data);
+  this.props.next();
 };
 initColumns() {
   return [
-    {
-      title: () => 'Name', 
-      value: (row, { focus }) => {
+    { id: 'name',
+      title: () => 'name', 
+      value: (rows, { focus }) => {
           return (
               <Input  
-placeholder='Enter Name'
-                value={row.name}
+                placeholder={'Heading '+rows.id}
+                value={rows.name}
                 focus={focus}
                 style={{fontWeight:'bold'}}
+                onChange={this.onFieldChange.bind(this,rows.id,'name') }
               />
           );
       }
@@ -65,7 +92,7 @@ placeholder='Enter Name'
                 value={rows.ExtractedData}
                 isOpen={focus}
                 style={{color:'gray'}}
-                onChange={this.onFieldChange.bind( this,rows.id, 'ExtractedData')}
+                onChange={this.onFieldChange.bind(this,rows.id,'ExtractedData')}
 
               />
           );
@@ -116,16 +143,6 @@ placeholder='Enter Name'
 }
 }
 
-function mapStateToProp(state) {
-  return ({
-  
-  })
-}
-function mapDispatchToProp(dispatch) {
-  return ({
 
-  })
-}
-
-export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(SelectData));
+export default withStyles(styles)(SelectData);
 
