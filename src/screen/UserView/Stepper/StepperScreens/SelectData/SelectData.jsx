@@ -86,7 +86,7 @@ initColumns() {
     }, {
       id: 'ExtractedData',
       title: () => 'Extracted Data',
-      value: (rows, { focus }) => {
+      value: (rows, { focus } ) => {
           return (
               <Input  
                 value={rows.ExtractedData}
@@ -107,8 +107,8 @@ initColumns() {
     <div style={{width:'90%',marginLeft:'5%',minHeight:'calc(100vh - 146px)'}}>
 <div style={{maxHeight:'72%'}}>
 <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</h4>
-        <iframe class='iframes' style={{marginLeft:0}} height="45%" width="95%" src=''></iframe>
-        <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
+  <iframe class='iframes' style={{marginLeft:0}} height="45%" width="95%" src=''></iframe>
+  <h4 style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</h4>
 <div style={{height:'40%',width:'95%',marginTop:0}}>
   
 <Grid 
