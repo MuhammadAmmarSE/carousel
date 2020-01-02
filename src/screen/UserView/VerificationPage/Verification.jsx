@@ -27,6 +27,7 @@ class Verification extends Component {
     }
     resendEmail=()=>{
         var user = firebase.auth().currentUser;
+        console.log(user,'user')
         user.sendEmailVerification().then((result) =>{
           Swal.fire({
             title:'Sucess',
@@ -35,7 +36,7 @@ class Verification extends Component {
             button:'Go'
            })
            console.log(result,'result')
-                                                firebase.auth().signOut()
+                                        firebase.auth().signOut()
                                         .then(function() {
                                             // Sign-out successful.
                                         

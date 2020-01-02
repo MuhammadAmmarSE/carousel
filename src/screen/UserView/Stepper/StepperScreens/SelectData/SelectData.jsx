@@ -132,4 +132,3 @@ function mapDispatchToProp(dispatch) {
 }
 
 export default connect(mapStateToProp, mapDispatchToProp)(withStyles(styles)(SelectData));
-
