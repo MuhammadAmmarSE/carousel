@@ -47,7 +47,7 @@ class App extends Component {
     }
     render() { 
         return ( 
-this.state.checked==true?
+this.state.checked===true?
         <Router history={history}>      
 
             <Route exact path="/" component={SignIn} />
@@ -57,6 +57,7 @@ this.state.checked==true?
             <Route exact path="/User/Verify" component={Verify}/>
             <Route exact path="/User/Carousel" component={Stepper}/> 
             <Route exact path="/User/Profile" component={Profile}/>
+            <Route exact path="/User/Settings" component={Settings}/>
         </Router>
         :
         <div style={{background:'',position: 'fixed',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>

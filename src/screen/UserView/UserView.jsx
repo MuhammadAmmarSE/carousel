@@ -84,7 +84,7 @@ class UserView extends Component {
           }
         }
         else
-        { console.log('this')
+        { console.log(user)
           histor.push('/User/Verify') 
         }
       }

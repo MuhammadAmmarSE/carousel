@@ -39,7 +39,7 @@ export default function FormDialog(props) {
     const classes = useStyles();
 
 
-    const [open, setOpen] = React.useState(false);
+   
     const [password, setPassword] = React.useState('');
 
     const [newPassword, setNewPassword] = React.useState('');
@@ -146,7 +146,7 @@ export default function FormDialog(props) {
                     </DialogActions>
 
                </div>
-               {value==1 && <div>
+               {value===1 && <div>
                    <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
                    <DialogContent>
                         <DialogContentText>
@@ -197,7 +197,7 @@ export default function FormDialog(props) {
                     </DialogActions>
                </div>}
 
-               { value==2 &&
+               { value===2 &&
                    <div>
                        <DialogTitle id="form-dialog-title">Password Changed</DialogTitle>
                        <DialogContent>

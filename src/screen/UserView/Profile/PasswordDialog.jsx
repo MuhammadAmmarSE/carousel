@@ -39,7 +39,7 @@ export default function FormDialog(props) {
     const classes = useStyles();
 
 
-    const [open, setOpen] = React.useState(false);
+ 
     const [password, setPassword] = React.useState('');
 
     const [newPassword, setNewPassword] = React.useState('');
@@ -107,7 +107,7 @@ export default function FormDialog(props) {
     
         <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
            <SwipeableViews index={value} >
-               <div>
+              {value===0 && <div>
                    <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
                    <DialogContent>
                         <DialogContentText>
@@ -145,8 +145,8 @@ export default function FormDialog(props) {
                         </Button>
                     </DialogActions>
 
-               </div>
-               {value==1 && <div>
+               </div>}
+               {value===1 && <div>
                    <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
                    <DialogContent>
                         <DialogContentText>
@@ -197,14 +197,10 @@ export default function FormDialog(props) {
                     </DialogActions>
                </div>}
 
-               { value==2 &&
+               { value===2 &&
                    <div>
                        <DialogTitle id="form-dialog-title">Password Changed</DialogTitle>
-                       <DialogContent>
-                            <DialogContentText>
-                                Be Safe and Secure, Set a Strong Password
-                            </DialogContentText>
-                       </DialogContent>
+                       
                     
                         <DialogActions>
                             <Button onClick={props.handleClose} color="primary">

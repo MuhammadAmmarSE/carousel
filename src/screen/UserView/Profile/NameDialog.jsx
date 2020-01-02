@@ -7,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { makeStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import {userData} from '../../../helper/redux/store/action/action';
@@ -16,20 +15,11 @@ import {userData} from '../../../helper/redux/store/action/action';
 
 import firebase from '../../../helper/firebase';
 
-const useStyles = makeStyles(theme => ({
-  
-    margin: {
-      margin: theme.spacing(1),
-    },
-   
-    textField: {
-      width: 200,
-    },
-  }));
+
 
 
   function FormDialog(props) {
-    const classes = useStyles();
+    
   
     
     const [name, setName] = React.useState(false);
@@ -80,7 +70,7 @@ const useStyles = makeStyles(theme => ({
       
     
         <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">     
-          <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
+          <DialogTitle id="form-dialog-title">Change User Name</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Please enter your new Username

@@ -3,112 +3,62 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Grid, Input,Select } from 'react-spreadsheet-grid'
 import { withStyles } from '@material-ui/core/styles';
-
+import firebase from '../../../../../helper/firebase'
 
 const styles=(theme => ({
 
 }));
 
+// Placement:{}
 
 
-
-const rowss=[
-     [ {Name :'Select Card',state:'Select_Card',values :[] },{Name:'Select Title',state:'Select_Header',values :['No','Yes']},  {Name:'Select Description',state:'Select_Footer',values :['No','Yes']} ],
-     [ {Name :'Select Card',state:'Select_Card',values :[] }, {Name:'Select Description',state:'Select_Footer',values :['No','Yes']} ],
-     [ {Name :'Select Card',state:'Select_Card',values :[] }, {Name:'Select Header',state:'Select_Header',values :['No','Yes']},  {Name:'Select Footer',state:'Select_Footer',values :['No','Yes']} ],
-  ];
-
-  const rows=[
-    { id: '1', name: 'Blog Title', ExtractedData: 'ExtractedData',selectData:null,names:''},
-    { id: '2', name: 'Blog Heading', ExtractedData: 'sadsd',selectData:null ,names:''},
-    { id: '3', name: 'Blog Description', ExtractedData: 'asdasd',selectData:null,names:'' },
-  ];
-let arrVal = [
-]
-let arr = [];
-let valarr = [];
-let cardArr = [];
 
 class ThemeConfig extends Component {
     constructor(props) {
         super(props);
         this.state = {  
-        value:[],
-        newvalue:'',
         selectedTheme:1,
-        rows,
+        row:this.props.data[0],
         columns: this.initColumns(),
-        age:'',
         list:[],
-        open:false
+        docs:null
         }
     
     }
     
 
-handle(e,name,index)
-    {
-var name = name
-let newlist=this.state.list;
-if(e.target.value === 'No'){
-  newlist[index].value=0;
-}
-else if (e.target.value === 'Yes'){
-  newlist[index].value=1;
-}
-else{
-  newlist[index].value=e.target.value;
-}
-        var value=e.target.value
-        this.setState({
-          [name]:value,
-         list:newlist
-        })
-    }
+
 
     componentDidMount(){     
-        var global=this;
-        var newlist=this.state.list;
-        var news = rowss[this.state.selectedTheme].values;
-        rowss[this.state.selectedTheme].map(function(d, index){
-          newlist.push({ name:d.Name,value:0,id:index+1})
-           global.setState({
-                [d.state]:[d.Name],
-                list:newlist
+      var global = this
+      var db = firebase.firestore();
+      db.collection('ThemeSetting').doc('Theme'+this.props.ThemeBluePrint).get()
+      .then(function(doc){
+        if(doc.exists){
+          global.setState({
+              docs:doc.data()
             })
-        })
-        rows.map(function(d, index){
-        arr.push(d)
-        arrVal[index]=arr;
-        valarr.push(index+1)
+          console.log('exists',doc.data())
+        }
+        else{
+          console.log('invalid theme')
+        }
       })
-      news=valarr;
-      cardArr=valarr
-       rowss[this.state.selectedTheme][0].values=cardArr
- 
+       console.log(this.props.ThemeBluePrint,'ThemeBluePrint')
     }
 
 
 
 
 onFieldChange(rowId, field, value) {
-  const row = rows.find(({ id }) => id === rowId);
-   row[field] = value;
+  const newRow = this.state.row.find(({ id }) => id === rowId);
+  newRow[field] = value;
   this.setState({
-      rows: [].concat(rows),
+      row: [].concat(newRow),
       blurCurrentFocus: true
   });
 }
-onFieldChanges(rowId, field, value) {
-  const row = rows.find(({ id }) => id === rowId);
-  let str=this.state.list[value-1].name
-   row[field] = value;
-   rows[rowId-1].names=str
-  this.setState({
-      rows: [].concat(rows),
-      blurCurrentFocus: true
-  });
-}
+
 
 
 initColumns() {
@@ -135,7 +85,6 @@ initColumns() {
                 value={rows.ExtractedData}
                 isOpen={focus}
                 style={{color:'gray'}}
-                onChange={this.onFieldChange.bind( this,rows.id, 'ExtractedData')}
 
               />
           );
@@ -153,7 +102,7 @@ initColumns() {
                 isOpen={focus}
                 style={{color:'gray'}}
              
-                 onChange={this.onFieldChanges.bind( this,rows.id,this.state.list[rows.id-1])}
+               //  onChange={this.onFieldChanges.bind( this,rows.id,this.state.list[rows.id-1])}
 
               />
           );
@@ -171,43 +120,42 @@ Next=()=>{
 
 
     render() { 
+      console.log(this.state.docs,'docs')
         const {classes}=this.props;
         return ( 
-        <div style={{width:'90%',marginLeft:'5%',height:'calc(100vh - 156px)'}}>
-<div style={{height:'45%'}}>
-{rowss[1].map(function(d, index){
+        <div style={{width:'90%',marginLeft:'5%',background:'',height:'calc(100vh - 144px)'}}>
+
+<div style={{height:'45%',paddingTop:'10px'}}>
+{this.state.docs!=null && Object.keys(this.state.docs).map(function(d, index){
     return (
       <div >
-      <h5 style={{marginLeft:0,color:'#3f51b5',marginTop:10,fontSize:14,fontWeight:'bold'}}>{d.Name}</h5>
+      <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select Cards</span>
       <select style={{marginLeft:0,width:'40%',height:40}} class="form-control" id="exampleFormControlSelect1" 
-       onChange={(e)=>{this.handle(e,d.Name,index)}}
+      // onChange={(e)=>{this.handle(e,d.Name,index)}}
       >
-              {d.values.map(function(d, index)
-              {
-                return (
-                  <option>{d}</option>                  
-                )
-              })
-              }
+                  <option>Yes</option> 
+                  <option>No</option>                     
             </select>
       </div>
     )
   },this)}
 </div>
-<div style={{position:'relative',height:'40%',width:'95%',marginTop:0}}>
 
-<div  style={{width:'100%',position:'absolute',bottom:'0px'}}>
+
+<div style={{height:'45%',width:'100%',marginTop:0}}>
+
+<div  style={{width:'100%'}}>
 <Grid 
-                columns={this.state.columns}
-                rows={this.state.rows}
-                getRowKey={row => row.id}
-                blurCurrentFocus={this.state.blurCurrentFocus}
-                />
-                </div>
+  columns={this.state.columns}
+  rows={this.state.row}
+  getRowKey={row => row.id}
+  blurCurrentFocus={this.state.blurCurrentFocus}
+  />
+  </div>
 
 </div>
    
-          <div style={{height:'10%',width:'95%',marginTop:20}}>
+          <div style={{background:'',height:'10%',width:'100%',paddingTop:'5px'}}>
 
 <Button type="submit"
 variant="contained" color="primary"  size="large"  style={{float:'left',height:40,width:'10%',borderRadius:20,marginTop:0}}

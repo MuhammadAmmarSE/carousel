@@ -96,7 +96,10 @@ class SignUp extends Component {
   
   else if (email !== '' || password !== '' || Firstname !== '' || Lastname !== '') {
 
-        firebase.auth().createUserWithEmailAndPassword(email, password).then((user)=>{
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then((result) =>{
 
           user.updateProfile({
             displayName: this.state.Firstname + " " + this.state.Lastname,
@@ -109,10 +112,8 @@ class SignUp extends Component {
             alert('Something unexpected happened , Please try again')
            
           });
-        })
-        .then(() => {
-        var user = firebase.auth().currentUser;
-        user.sendEmailVerification().then((result) =>{
+
+
         
         }).catch((error)=>{
           alert('Something unexpected happened , Please try again')

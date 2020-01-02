@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { connect } from 'react-redux';
-import Image from './stepper.png';
+
 import '../../Stepper.css';
-const useStyles =makeStyles(theme => ({
-  
-}));
+
 class CreateCarousel extends Component {
 
   constructor(props){
@@ -39,7 +32,7 @@ componentWillUnmount(){
 
 }
 Next=()=>{
-  if(this.state.carousalName !='' && this.state.url !=''){
+  if(this.state.carousalName !=='' && this.state.url !==''){
     this.props.handleNext(this.state.carousalName,this.state.url);
     this.props.next();
   }
@@ -49,8 +42,8 @@ Next=()=>{
 }
   render(){
   return (
-    <div className="App" style={{marginLeft:'350px',height:'calc(100hv - 80px)'}}>
-<h2 style={{color:'#3f51b5'}}><b>Lets Start Creating a Carousel</b></h2>
+    <div className="App" style={{height:'calc(100vh - 144px)',background:'#F7F8FC',textAlign:'center',paddingTop:'20px'}}>
+<span style={{color:'#3f51b5',fontSize:'20px',textAlign:'center'}}>Lets Start Creating a Carousel</span>
     <form 
      noValidate autoComplete="off" onSubmit={this.submit.bind(this)}>
     <CardContent>
@@ -60,22 +53,22 @@ Next=()=>{
         name="carousalName" onChange={this.handleChange.bind(this)}
         margin="normal"
         variant="outlined"
-        style={{width:'40%',marginLeft:'60px'}}
+        style={{width:'40%'}}
       />
        </CardContent>
        <CardContent>
          <TextField
-         style={{width:'40%',marginLeft:'60px'}}
+         style={{width:'40%'}}
         id="outlined-name"
         label="Blog URL"
         name="url" onChange={this.handleChange.bind(this)}
         margin="normal"
         variant="outlined"
       />
-      {/* <img src={Image}/> */}
+    
     </CardContent>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'40%',marginTop:20,marginLeft:'70px'}}
+    variant="contained" color="primary"  size="large"  style={{width:'40%',marginTop:20}}
 
     onClick={this.Next.bind(this)}
     >
@@ -91,14 +84,6 @@ Next=()=>{
 }
 }
 
-function mapStateToProp(state) {
-  return ({
-  })
-}
-function mapDispatchToProp(dispatch) {
-  return ({
-    
-  })
-}
 
-export default connect(mapStateToProp, mapDispatchToProp)(CreateCarousel);
+
+export default CreateCarousel;

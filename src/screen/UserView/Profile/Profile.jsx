@@ -9,6 +9,9 @@ import NameDialog from './NameDialog';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
+import Paper from '@material-ui/core/Paper';
+
+
 import './Profile.css'
 
 import Loader from 'react-loader-spinner'
@@ -23,9 +26,9 @@ class Profile extends Component {
     componentDidUpdate(prevProps) {
       
 
-      if(this.props.user!=undefined)
+      if(this.props.user!==undefined)
       {
-        if(prevProps.user==undefined && this.props.user !== null)
+        if(prevProps.user===undefined && this.props.user !== null)
         {
           this.setState({name:this.props.user.name , email:this.props.user.email,credits:this.props.user.credits,lastLogin:this.props.user.LastLogin,memberType:this.props.user.MemberType,userSince:this.props.user.UserSince,})
         }
@@ -38,7 +41,7 @@ class Profile extends Component {
 
       componentDidMount()
       {  
-        if(this.props.user!=undefined)
+        if(this.props.user!==undefined)
         {
           if ( this.props.user && this.props.user !== null)
           {
@@ -85,8 +88,12 @@ class Profile extends Component {
               <PasswordDialog open={this.state.PdialogOpen} handleClose={this.PhandleClose}  />
               <EmailDialog    open={this.state.EdialogOpen} handleClose={this.EhandleClose}  />
               <NameDialog     open={this.state.NdialogOpen} handleClose={this.NhandleClose}  />
+              <Paper id="ProfilePaper" >
                 <span className="ProfileBlock">
-                  <span className="ProfileText1" > Name :  {this.state.name} </span>
+                  <span className="ProfileText1" >
+                    <span className="ProfileText3">Name :</span>
+                    <span> {this.state.name} </span>
+                  </span>
                   <span className="ProfileIcon1" >
                   <IconButton aria-label="edit"  size="small" onClick={this.NhandleClickOpen}>
                      <EditIcon fontSize="inherit" />
@@ -97,7 +104,10 @@ class Profile extends Component {
                 <br/> <br/>
 
                 <span className="ProfileBlock">
-                   <span  className="ProfileText1"> Email:          {this.state.email} </span>
+                   <span  className="ProfileText1">
+                      <span className="ProfileText3"> Email:  </span>
+                      <span>{this.state.email}</span>
+                    </span>
                    <span  className="ProfileIcon1">
                      <IconButton aria-label="edit"  size="small">
                        <EditIcon  fontSize="inherit" />
@@ -107,7 +117,10 @@ class Profile extends Component {
                 <br/> <br/>
 
                 <span className="ProfileBlock">
-                 <span  className="ProfileText1"> Credits :       {this.state.credits} </span>
+                 <span  className="ProfileText1">
+                    <span className="ProfileText3"> Credits : </span>
+                    <span className="ProfileText2">{this.state.credits} $ </span>
+                 </span>
                  {/* <span  className="ProfileIcon1">
                    <IconButton aria-label="edit"  size="small">
                      <EditIcon  fontSize="inherit" />
@@ -119,7 +132,9 @@ class Profile extends Component {
               
 
                 <span className="ProfileBlock">
-                 <span  className="ProfileText1"> Last Login :    {this.state.lastLogin} </span>
+                 <span  className="ProfileText1">
+                   <span className="ProfileText3"> Last Login : </span>
+                   <span className="ProfileText2"> {this.state.lastLogin} </span>   </span>
                  {/* <span  className="ProfileIcon1">
                      <IconButton aria-label="edit"  size="small">
                       <EditIcon fontSize="inherit" />
@@ -128,10 +143,11 @@ class Profile extends Component {
                 </span>
                 <br/> <br/>
 
-                <span className="ProfileBlock">
+                <span id="ProfileSinceDate" className="ProfileBlock">
 
-                   <span  className="ProfileText1">
-                     Account Since : {this.state.userSince}
+                   <span className="ProfileText1">
+                    <span className="ProfileText3"> Account Since : </span>
+                    <span className="ProfileText2">  {this.state.userSince} </span>
                    </span>
 
                    {/* <span  className="ProfileIcon1">
@@ -141,9 +157,12 @@ class Profile extends Component {
                    </span> */}
 
                 </span>
-                <br/> <br/> 
+                </Paper>
+
+                <div id="ProfileChangePassword">
+                  <Button style={{width:'100%'}} variant="contained" onClick={this.PhandleClickOpen}> Change Password </Button>
+                </div>
                 
-                <Button variant="contained" onClick={this.PhandleClickOpen}> Change Password </Button>
 
             </div>
             :

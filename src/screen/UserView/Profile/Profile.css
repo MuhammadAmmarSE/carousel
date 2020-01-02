@@ -1,17 +1,49 @@
+
+#ProfilePaper
+{   text-align: left;
+    padding:10px;
+    margin-bottom: 10px;
+    max-width: 350px;
+    min-width: 300px;
+}
+
 .ProfileBlock
 {
     display: block;
-    background-color: '';
-    vertical-align: bottom;
+    
 }
 
 .ProfileText1
 {
     vertical-align: auto;
+    
+}
+
+
+.ProfileText2
+{
+    color:grey;
+}
+
+.ProfileText3
+{
+    font-weight: bold;
 }
 
 .ProfileIcon1
 {
     padding-left: 20px;
     vertical-align: baseline;
+}
+
+#ProfileSinceDate
+{
+    background: rgb(228, 228, 228);
+    text-align: center;
+}
+
+#ProfileChangePassword
+{
+    max-width: 350px;
+    min-width: 300px;
 }
