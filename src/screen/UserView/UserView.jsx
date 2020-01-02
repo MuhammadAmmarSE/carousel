@@ -16,7 +16,7 @@ class UserView extends Component {
     checkUser=()=>{
 
       var db = firebase.firestore();
-      const user=  firebase.auth().currentUser;;
+      const user=  firebase.auth().currentUser;
     const global = this;
       db.collection("Users").doc(user.uid).get().then( function (doc){
         if (doc.exists) {

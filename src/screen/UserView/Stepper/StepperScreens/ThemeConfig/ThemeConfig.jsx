@@ -4,6 +4,21 @@ import { connect } from 'react-redux';
 import { Grid, Input,Select } from 'react-spreadsheet-grid'
 import { withStyles } from '@material-ui/core/styles';
 
+/* 
+
+
+
+  var db = firebase.firestore();
+  db.collection("ThemeSetting").doc('Theme1').get().then( function (doc){
+    if (doc.exists) {
+
+    }
+    else { Invalid Theme }
+
+  })
+
+*/
+
 
 const styles=(theme => ({
 
@@ -47,24 +62,27 @@ class ThemeConfig extends Component {
     
 
 handle(e,name,index)
-    {
+  {
 
-let newlist=this.state.list;
-if(e.target.value === 'No'){
-  newlist[index].value=0;
-}
-else if (e.target.value === 'Yes'){
-  newlist[index].value=1;
-}
-else{
-  newlist[index].value=e.target.value;
-}
-        var value=e.target.value
-        this.setState({
-          [name]:value,
-         list:newlist
-        })
-    }
+  let newlist=this.state.list;
+  if(e.target.value === 'No')
+  {
+    newlist[index].value=0;
+  }
+  else if (e.target.value === 'Yes')
+  {
+    newlist[index].value=1;
+  }
+  else
+  {
+    newlist[index].value=e.target.value;
+  }
+  var value=e.target.value
+  this.setState({
+    [name]:value,
+  list:newlist
+  })
+  }
 
     componentDidMount(){     
         var global=this;

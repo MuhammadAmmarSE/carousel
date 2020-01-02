@@ -27,6 +27,7 @@ class Verification extends Component {
     }
     resendEmail=()=>{
         var user = firebase.auth().currentUser;
+        if(user)
         user.sendEmailVerification().then((result) =>{
           Swal.fire({
             title:'Sucess',
@@ -47,6 +48,8 @@ class Verification extends Component {
         }).catch((error)=>{
           console.log(error)
         })
+
+        else this.props.histor.push('/')
          
       }
     render() { 

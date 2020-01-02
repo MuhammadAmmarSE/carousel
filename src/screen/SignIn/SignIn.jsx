@@ -17,6 +17,9 @@ import { connect } from 'react-redux';
 import firebase from '../../helper/firebase';
 import {setUser} from '../../helper/redux/store/action/action';
 
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
 import './SignIn.css';
 
 const style = theme => ({
@@ -58,7 +61,7 @@ const style = theme => ({
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {email:'',password:'',error1:false,error2:false,errorMessage:''}
+    this.state = {email:'',password:'',error1:false,error2:false,errorMessage:'',loading:false}
     this.SignIn=this.SignIn.bind(this);
   }
 
@@ -85,11 +88,15 @@ class SignIn extends Component {
         return;
     }
 
+    this.setState({loading:true})
+
     try {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
+
+          this.setState({loading:false})
 // console.log('me')
 //           this.props.history.push('/User')
 //           if (user.user.emailVerified === false) 
@@ -106,6 +113,7 @@ class SignIn extends Component {
         })
         .catch((error) =>{
 
+            this.setState({loading:false})
             console.log('error',error);
 
 
@@ -171,7 +179,16 @@ render() {
 
         <Container component="main" maxWidth="xs">
           <CssBaseline/>
-          <div className={classes.paper}>
+          {this.state.loading? <div style={{background:'',position: 'fixed',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>
+          <Loader
+          type="RevolvingDot"
+          color="#00BFFF"
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+          />
+         
+        </div>:<div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon/>
             </Avatar>
@@ -268,7 +285,9 @@ render() {
               </Typography>
             </Toolbar> </form>
 
-        </div ></Container> </div>
+            </div >}
+            </Container>
+            </div>
         </div>
   );
 }
