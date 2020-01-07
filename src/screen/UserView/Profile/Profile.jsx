@@ -17,6 +17,11 @@ import './Profile.css'
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
+import GoldIcon from './GoldIcon.png'
+import SilverIcon from './SilverIcon.png'
+
+
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +55,19 @@ class Profile extends Component {
         }
           
       }
+
+      getIcon(memberType)
+      {
+        if(memberType=='silver')
+        {
+          return SilverIcon;
+        }
+        else if (memberType=='gold')
+        {
+          return GoldIcon;
+        }
+      }
+
 
        PhandleClickOpen = () => {
         this.setState({PdialogOpen:true});
@@ -98,6 +116,10 @@ class Profile extends Component {
                   <IconButton aria-label="edit"  size="small" onClick={this.NhandleClickOpen}>
                      <EditIcon fontSize="inherit" />
                     </IconButton>
+                  </span>
+
+                  <span className="ProfileIcon1" >
+                  <img src={this.getIcon(this.state.memberType)}  title={this.state.memberType+' member'}  />
                   </span>
                     
                 </span>

@@ -31,17 +31,41 @@ class App extends Component {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user != null)
     {  
+
      setUser(user);
-     global.setState({checked:true});
-    let path=history.location.pathname.toString().toUpperCase();
+    
+     let path=history.location.pathname.toString().toUpperCase();
     
      if(path==='/' || path==='/USER' ||  path==='/SIGNUP' || path==='/SIGNIN')
-      { history.push('/User/Home'); }
+     { history.push('/User/Home'); }
+
+
+     if(global.state.checked==true)
+
+      { let db = firebase.firestore();
+
+      let date = new Date();
+      let lastLogin = date.getFullYear()+ '/' + [date.getMonth()+1] + '/' + date.getDate()+ ', ' + date.getHours()+ ':' + date.getMinutes()
+
+      db.collection("Users").doc(user.uid).update({
+        LastLogin:lastLogin
+      })
+      .then(function() {
+       
+      })
+      .catch(function(error) {
+        console.log('User logged in but no doc exist , So login session not stored.');
+           
+      })
     }
-    else
-    {
-      global.setState({checked:true})
-    }
+
+      global.setState({checked:true});
+
+      }
+      else
+      {
+        global.setState({checked:true})
+      }
   });
         this.props.getHistory(history);
     }

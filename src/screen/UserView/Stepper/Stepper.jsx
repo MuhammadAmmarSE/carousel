@@ -37,13 +37,14 @@ const styles = theme => ({
             Name:'',
             Url:'',
             Data:[],
-            // [    first  object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}] 
-            //      second object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]  
-           //       third  object     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]
+            // [    first  array     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}] 
+            //      second array     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]  
+           //       third  array     [{'Title':'Data'},{'Title':'Data'},{'Title':'Data'}]
            //       ...                                                                  
            //                                                                            ]
            selectedData:[],
-           Placement:[{Header:'',Footer:'',image:''}] ///theme ke options
+           Placement:null, ///theme ke options
+           ThemeBluePrint:null,
 
         }
     this.setActiveStep=this.setActiveStep.bind(this);
@@ -81,6 +82,12 @@ const styles = theme => ({
       this.setState({Data:data});
       console.log('sd', data)
     }
+
+    SThandleNext = (data) =>
+    {
+      this.setState({ThemeBluePrint:data});
+      console.log('st', data)
+    }
    
      getStepContent(step) {
       switch (step) {
@@ -89,9 +96,9 @@ const styles = theme => ({
           case 1:
             return <SelectData back={this.handleBack} next={this.handleNext}  handleNext={this.SDhandleNext.bind(this)}/>;
             case 2:
-              return <SelectTheme back={this.handleBack} next={this.handleNext}/>;
+              return <SelectTheme back={this.handleBack} next={this.handleNext} handleNext={this.SThandleNext.bind(this)}/>;
               case 3:
-                return <ThemeConfig back={this.handleBack} next={this.handleNext}/>;
+                return <ThemeConfig back={this.handleBack} next={this.handleNext} ThemeBluePrint={this.state.ThemeBluePrint} data={this.state.Data}/>;
         default:
           return 'Unknown step';
       }

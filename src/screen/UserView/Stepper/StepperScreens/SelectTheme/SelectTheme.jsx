@@ -17,13 +17,15 @@ class SelectTheme extends Component {
     super(props)
     this.state = {
         activeStep:0,
-         selectedTheme:0,
+         selectedTheme:1,
          index:0,
          direction:'',
     }
 
 }
  handleNext = () => {
+  this.props.handleNext(this.state.selectedTheme);
+  console.log(this.state.selectedTheme,'this.state.selectedTheme');
   this.props.next()  
 };
 setIndex(){
@@ -37,6 +39,9 @@ setDirection(event){
      direction:event
   })
 }
+
+
+
 
 ControlledCarousel() {
  const handleSelect = (selectedIndex, e) => {
@@ -92,6 +97,7 @@ ControlledCarousel() {
 
 
   render(){
+   
   return (
     <div style={{background:'#F7F8FC',width:'100%',height:'calc(100vh - 144px)'}}>
 

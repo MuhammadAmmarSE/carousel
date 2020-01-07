@@ -7,7 +7,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Swal from 'sweetalert2';
 import firebase from '../../../helper/firebase'
-
+import { connect } from 'react-redux';
 
 class Verification extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class Verification extends Component {
             button:'Go'
            })
            console.log(result,'result')
-                                                firebase.auth().signOut()
+                                        firebase.auth().signOut()
                                         .then(function() {
                                             // Sign-out successful.
                                         
@@ -112,5 +112,13 @@ class Verification extends Component {
         </div> );
     }
 }
- 
-export default Verification;
+function mapStateToProp(state) {
+    return ({
+      histor:state.root.getHis,
+    })
+  }
+  function mapDispatchToProp(dispatch) {
+    return ({
+    })
+  }
+  export default connect(mapStateToProp, mapDispatchToProp)(Verification);

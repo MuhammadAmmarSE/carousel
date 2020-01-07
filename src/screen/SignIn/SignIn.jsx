@@ -91,11 +91,12 @@ class SignIn extends Component {
     this.setState({loading:true})
 
     try {
+
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then((user) => {
-
+        .then( (user) => {
+          
           this.setState({loading:false})
 // console.log('me')
 //           this.props.history.push('/User')
@@ -108,13 +109,18 @@ class SignIn extends Component {
 //               .props
 //               .history
 //               .push('/User/Home')
+
+
+
+
+
 //           }
 
         })
         .catch((error) =>{
 
             this.setState({loading:false})
-            console.log('error',error);
+           
 
 
             if(error.code==='auth/wrong-password')
@@ -246,7 +252,7 @@ render() {
             <h4 style={{color:'red',fontSize:10,marginLeft:20,marginTop:-5}}>{this.state.errorMessage} </h4 >: null
             } </Grid>
         <Button
-        type="button"
+        type="submit"
         fullWidth
         variant="contained"
         color="primary"

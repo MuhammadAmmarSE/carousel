@@ -43,7 +43,7 @@ class SelectData extends Component {
 }
 
 onFieldChange(rowId, field, value) {
-  console.log(rowId,field,value)
+  
   const row = rows.find(({ id }) => id === rowId);
    row[field] = value;
   this.setState({
