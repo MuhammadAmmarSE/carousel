@@ -31,13 +31,17 @@ class SelectTheme extends Component {
 setIndex(){
   this.setState({
     index:this.state.index+1,
+  },()=>{
+console.log(this.state.index)
   })
 }
 setDirection(event){
   this.setState({
     index:this.state.index-1,
      direction:event
-  })
+  },()=>{
+    console.log(this.state.index)
+      })
 }
 
 
@@ -46,8 +50,11 @@ setDirection(event){
 ControlledCarousel() {
  const handleSelect = (selectedIndex, e) => {
    if(e === 'next'){
-      if(this.state.selectedTheme >= 1){
-       
+      if(this.state.selectedTheme > 1){
+        this.setState({
+          index:0,
+          selectedTheme:0
+        })
       }
       else{
         this.setIndex(selectedIndex);
@@ -58,7 +65,6 @@ ControlledCarousel() {
    }
    if(e === 'prev'){
     if(this.state.selectedTheme <= 0){
-     
     }
     else{
       this.setState({

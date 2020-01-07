@@ -67,7 +67,7 @@ class ThemeConfig extends Component {
 
 
 onFieldChange(rowId, field, value) {
-  console.log(rowId, field, value);
+  console.log(rowId,'ThemeBluePrint', field,'ThemeBluePrint', value);
   const data={};
   data[value]=field;
   this.state.Placement.push(data);
@@ -77,13 +77,12 @@ onFieldChange(rowId, field, value) {
 filterobj = (obj) =>{
   var options = {description:'true',type:'true',xyz:'false'}
   var res = []
-  Object.keys(options).map((key) => {
+  Object.keys(options).map((key,i) => {
     if(options[key]==='true')
     {
-   res.push(key);
+   res.push({ name:key,value:0,id:i});
     }
   } 
-
   )
   return res;
 }
@@ -121,6 +120,7 @@ initColumns() {
       id: 'SelectData',
       title: () => 'Placed Data',
       value: (rows, { focus }) => {
+        console.log(rows.selectData,'rows.SelectData')
           return (
               <Select  
               items={  filter.map((lis,i)=>{
@@ -169,7 +169,7 @@ handleChange (event) {
 
 
     render() { 
-     
+     console.log(this.state.Placement,'Placement')
         const {classes}=this.props;
         return ( 
         <div style={{width:'90%',marginLeft:'5%',background:'',height:'calc(100vh - 144px)'}}>
