@@ -41,3 +41,14 @@
   text-align: center;
  
 }
+.wrapper{
+  border: 1px dashed red;
+  height: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 150px;
+}
+.wrapper .selection{
+ width:150px;
+ border:1px solid #ccc
+}

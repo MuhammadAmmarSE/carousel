@@ -4,14 +4,26 @@ import { connect } from 'react-redux';
 import { Grid, Input,Select } from 'react-spreadsheet-grid'
 import { withStyles } from '@material-ui/core/styles';
 import firebase from '../../../../../helper/firebase'
+import '../../Stepper.css';
+import MenuItem from '@material-ui/core/MenuItem';
+import Selects from '@material-ui/core/Select';
+
 
 const styles=(theme => ({
 
 }));
 
 // Placement:{}
-
-
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 class ThemeConfig extends Component {
     constructor(props) {
@@ -21,9 +33,12 @@ class ThemeConfig extends Component {
         row:this.props.data[0],
         columns: this.initColumns(),
         list:[],
-        docs:null
+        docs:null,
+        CNo:null,
+        NocFire:5,
+        Placement:[],
         }
-    
+        this.filterobj=this.filterobj.bind(this);
     }
     
 
@@ -35,7 +50,8 @@ class ThemeConfig extends Component {
       .then(function(doc){
         if(doc.exists){
           global.setState({
-              docs:doc.data()
+              docs:doc.data(),
+              NocFire:doc.data().Noc,
             })
           console.log('exists',doc.data())
         }
@@ -50,18 +66,29 @@ class ThemeConfig extends Component {
 
 
 onFieldChange(rowId, field, value) {
-  const newRow = this.state.row.find(({ id }) => id === rowId);
-  newRow[field] = value;
-  this.setState({
-      row: [].concat(newRow),
-      blurCurrentFocus: true
-  });
+  console.log(rowId, field, value);
+  const data={};
+  data[value]=field;
+  this.state.Placement.push(data);
+  console.log(data,'data',)
 }
 
+filterobj = (obj) =>{
+  var options = {description:'true',type:'true',xyz:'false'}
+  var res = []
+  Object.keys(options).map((key) => {
+    if(options[key]==='true')
+    {
+   res.push(key);
+    }
+  } 
 
+  )
+  return res;
+}
 
 initColumns() {
-  
+  const filter = this.filterobj();
   return [
     {
       title: () => 'Name', 
@@ -95,13 +122,16 @@ initColumns() {
       value: (rows, { focus }) => {
           return (
               <Select  
-              items={   this.state.list.filter((lis,i)=>{
-                return lis.value>0}) }
+              items={  filter.map((lis,i)=>{
+                return lis }) }
+              // items={
+              //   filter
+              // }
               selectedId={rows.selectData}
                 isOpen={focus}
                 style={{color:'gray'}}
              
-               //  onChange={this.onFieldChanges.bind( this,rows.id,this.state.list[rows.id-1])}
+                 onChange={this.onFieldChange.bind( this,rows.id,filter[rows.id-1],rows.name)}
 
               />
           );
@@ -110,46 +140,72 @@ initColumns() {
   ]
 }
 
+
+
 // /////
 
 Next=()=>{
   this.props.next()
 }
 
+GetOptions(Noc)
+{
+
+  let items=[];
+  for (let i=0;i<Noc;i++)
+  {
+  items.push( <MenuItem value={i+1}>{i+1}</MenuItem>)
+  };
+  return items;
+}
+
+handleChange (event) {
+  this.setState({
+    CNo: event.target.value
+  });
+};
+
 
 
     render() { 
-      console.log(this.state.docs,'docs')
+     
         const {classes}=this.props;
         return ( 
         <div style={{width:'90%',marginLeft:'5%',background:'',height:'calc(100vh - 144px)'}}>
 
 <div style={{height:'45%',paddingTop:'10px'}}>
-{this.state.docs!=null && Object.keys(this.state.docs).map(function(d, index){
-    return (
-      <div >
-      <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select Cards</span>
-      <select style={{marginLeft:0,width:'40%',height:40}} class="form-control" id="exampleFormControlSelect1" 
-      // onChange={(e)=>{this.handle(e,d.Name,index)}}
-      >
-                  <option>Yes</option> 
-                  <option>No</option>                     
-            </select>
-      </div>
-    )
-  },this)}
+  <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select Card</span>
+<div >
+
+     <Selects
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          MenuProps={MenuProps}
+          value={this.state.CNo}
+         onChange={this.handleChange.bind(this)}
+         style={{width:'40%'}}
+         class="form-control" id="exampleFormControlSelect1"
+        >
+           {this.GetOptions(this.state.NocFire)}
+        </Selects>
+
+
+    </div>
+
 </div>
 
 
 <div style={{height:'45%',width:'100%',marginTop:0}}>
 
 <div  style={{width:'100%'}}>
+
 <Grid 
   columns={this.state.columns}
   rows={this.state.row}
   getRowKey={row => row.id}
   blurCurrentFocus={this.state.blurCurrentFocus}
   />
+ 
   </div>
 
 </div>
