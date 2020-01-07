@@ -88,7 +88,7 @@ filterobj = (obj) =>{
 }
 
 initColumns() {
-  const filter = this.filterobj();
+  
   return [
     {
       title: () => 'Name', 
@@ -122,16 +122,15 @@ initColumns() {
       value: (rows, { focus }) => {
           return (
               <Select  
-              items={  filter.map((lis,i)=>{
-                return lis }) }
+              items={  this.state.docs }
               // items={
               //   filter
               // }
-              selectedId={rows.selectData}
+              selectedId={rows.id}
                 isOpen={focus}
                 style={{color:'gray'}}
              
-                 onChange={this.onFieldChange.bind( this,rows.id,filter[rows.id-1],rows.name)}
+                //  onChange={this.onFieldChange.bind( this,rows.id,filter[rows.id-1],rows.name)}
 
               />
           );
