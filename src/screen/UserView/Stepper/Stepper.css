@@ -1,45 +1,22 @@
-
-.div {
-  /* width: 160px;
-  height: 40px;
-  top:-6px;
-  left: 5px;
-  position: relative;
-  background: #3f51b5;text-align: center;color: floralwhite;
-  background-image: url('./StepperScreens/CreateCarousel/stepper.png'); */
-}
-.App{
+.StepperFinishDiv
+{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+  align-items: center;
+  flex-direction: column;
+  height:calc(100vh - 144px);
+  width:100%;
 
 }
-/* .div::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  
-  width: 0;
-  height: 0;
-  border-left: 20px solid white;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;text-align: center;color: floralwhite;
-}
-.div::before {
-  content: "";
-  position: absolute;
-  right: -20px;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-left: 20px solid #3f51b5;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;text-align: center;color: floralwhite;
-} */
+
 .hfive{
-  padding-top: 20px;
+  padding-top: 16px;
   color:white;
   font-weight: bold;
   text-align: center;
- 
+  margin-left: 12px;
+  margin-right:5px;
 }
 .wrapper{
   border: 1px dashed red;

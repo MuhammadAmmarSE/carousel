@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import "./LandingPage.css"
 
 const drawerWidth = 240;
 
@@ -163,11 +164,9 @@ class LandingPage extends Component {
           }}>
 
             {this.state.mydata.length === 0
-              ? <div
-                  style={{
-                  marginTop: '20%',
-                  marginLeft: '450px'
-                }}>
+              ?   <div
+                  className="LandingPageMainDiv"
+                  >
                   <h3 style={{
                     marginLeft: '60px'
                   }}>No Carousel Yet !</h3>

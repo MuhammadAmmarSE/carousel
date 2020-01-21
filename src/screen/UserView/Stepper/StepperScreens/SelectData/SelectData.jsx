@@ -3,6 +3,10 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Input } from 'react-spreadsheet-grid'
 
+import BaseTable, { Column } from 'react-base-table'
+import 'react-base-table/styles.css'
+
+
 const styles = theme=> ({
 
 });
@@ -68,12 +72,12 @@ initColumns() {
   return [
     {
       title: () => 'Name', 
-      value: (row, { focus }) => {
+      value: (row , { focus }) => {
           return (
-              <Input  
-placeholder={'Heading '+ row.id}
-                value={row.name}
+              <Input
+                placeholder={'Heading '+ row.id}
                 focus={focus}
+                value={row.name}
                 style={{fontWeight:'bold'}}
                 onChange={this.onFieldChange.bind( this,row.id, 'name')}
               />
@@ -86,9 +90,9 @@ placeholder={'Heading '+ row.id}
           return (
               <Input  
                 value={row.ExtractedData}
-                isOpen={focus}
-                style={{color:'gray'}}
-                onChange={this.onFieldChange.bind( this,row.id, 'ExtractedData')}
+                focus={focus}
+                style={{color:'grey'}}
+                //onChange={this.onFieldChange.bind( this,row.id, 'ExtractedData')}
 
               />
           );
@@ -108,18 +112,19 @@ placeholder={'Heading '+ row.id}
 <div style={{height:'90%',paddingTop:'10px'}}>
   <div style={{height:"50%"}}>
   <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Select and Unselect data for your Blog</span>
-          <iframe title="Website" className='iframes' height='80%' width="100%" src=''></iframe>
+    <iframe title="Website" className='iframes' height='80%' width="100%" src=''></iframe>
   </div>
 <div style={{height:'50%',width:'100%',position:'relative'}}>
 <div  style={{width:'100%'}}>
         <span style={{marginLeft:0,color:'#3f51b5',fontSize:14,fontWeight:'bold'}}>Selected Data for your Blog</span>
 
-<Grid 
+                <Grid 
                 columns={this.state.columns}
                 rows={this.state.rows}
                 getRowKey={row => row.id}
                 blurCurrentFocus={this.state.blurCurrentFocus}
                 />
+           
 </div>
 </div>
     <br /> 

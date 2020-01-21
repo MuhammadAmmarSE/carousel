@@ -25,14 +25,12 @@ class SelectTheme extends Component {
 }
  handleNext = () => {
   this.props.handleNext(this.state.selectedTheme);
-  console.log(this.state.selectedTheme,'this.state.selectedTheme');
   this.props.next()  
 };
 setIndex(){
   this.setState({
     index:this.state.index+1,
   },()=>{
-console.log(this.state.index)
   })
 }
 setDirection(event){
@@ -50,7 +48,7 @@ setDirection(event){
 ControlledCarousel() {
  const handleSelect = (selectedIndex, e) => {
    if(e === 'next'){
-      if(this.state.selectedTheme > 1){
+      if(this.state.selectedTheme > 2){
         this.setState({
           index:0,
           selectedTheme:0
@@ -64,7 +62,13 @@ ControlledCarousel() {
       }
    }
    if(e === 'prev'){
-    if(this.state.selectedTheme <= 0){
+    if(this.state.selectedTheme <= 1){
+
+      this.setState({
+        selectedTheme:3,index:2,
+      })  
+
+
     }
     else{
       this.setState({
@@ -84,7 +88,7 @@ ControlledCarousel() {
       <Carousel.Item style={{background:'#000000'}}>
       <img
             className="d-block w-100"
-            src={require("../../../../../Assets/SliderOne.PNG")}
+            src={require("../../../../../Assets/SliderOne.jpg")}
             alt="First slide"
             style={{width:'100%',height:400,}}
             />
@@ -92,7 +96,16 @@ ControlledCarousel() {
       <Carousel.Item>
       <img
             className="d-block w-100"
-            src={require("../../../../../Assets/SliderFour.PNG")}
+            src={require("../../../../../Assets/SliderFour.jpg")}
+            alt="First slide"
+            style={{width:'100%',height:400}}
+          />
+      </Carousel.Item>
+
+      <Carousel.Item>
+      <img
+            className="d-block w-100"
+            src={require("../../../../../Assets/SliderThree.jpg")}
             alt="First slide"
             style={{width:'100%',height:400}}
           />

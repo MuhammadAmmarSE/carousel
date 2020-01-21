@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { Grid, Input,Select } from 'react-spreadsheet-grid'
+import { Grid, Input, Select } from 'react-spreadsheet-grid'
 import { withStyles } from '@material-ui/core/styles';
 import firebase from '../../../../../helper/firebase'
 import '../../Stepper.css';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import Selects from '@material-ui/core/Select';
+// import Select from '@material-ui/core/Select';
+
+
+
+
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 
 const styles=(theme => ({
@@ -31,15 +39,29 @@ class ThemeConfig extends Component {
         this.state = {  
         selectedTheme:1,
         row:this.props.data[0],
-        columns: this.initColumns(),
+        open:false,
+         columns: this.initColumns(),
         list:[],
-        docs:null,
-        CNo:null,
-        NocFire:5,
+        options:[],
+        CNo:1,
+        NocFire:null,
         Placement:[],
+        anchorEl:null,
+        
         }
-        this.filterobj=this.filterobj.bind(this);
+        this.getOpen=this.getOpen.bind(this);
+        this.onFieldChange=this.onFieldChange.bind(this);
+        
     }
+
+     handlePopoverOpen = event => {
+       console.log(event)
+     this.setState({open:true,anchorEl:event.currentTarget})
+    };
+  
+     handlePopoverClose = () => {
+     this.setState({open:false,anchorEl:null})
+    };
     
 
 
@@ -48,57 +70,109 @@ class ThemeConfig extends Component {
       var db = firebase.firestore();
       db.collection('ThemeSetting').doc('Theme'+this.props.ThemeBluePrint).get()
       .then(function(doc){
+
         if(doc.exists){
+          let options=[];
+          let optionId=1;
+          for (let key in doc.data()){
+
+            if(doc.data().hasOwnProperty(key)&&key!=='Noc'){
+              options.push({id:optionId, name:key})
+              optionId++
+            }
+         }
+
+          let placement=[];
+         global.state.row.map( (row,index)=>
+         {
+           placement.push({id:row.id,name:row.name,placementName:null,placementId:null})
+         })
+
+         console.log(placement)
+         console.log(options)
+
+          // for(i=0;i<doc.data().length;i++)
+          // {
+          //   let obj={id:i,name:doc.data().name}
+
+
+          // }
+          let Noc=global.props.data.length;
+          if(Noc > doc.data().Noc)
+          {
+            Noc=doc.data().Noc
+          }
+
           global.setState({
-              docs:doc.data(),
-              NocFire:doc.data().Noc,
+             options,
+              Placement:placement,
+              NocFire:Noc,
             })
-          console.log('exists',doc.data())
+          
         }
         else{
-          console.log('invalid theme')
-        }
+          console.log('Invalid theme')
+         }
       })
-       console.log(this.props.ThemeBluePrint,'ThemeBluePrint')
+      
     }
 
-
-
-
-onFieldChange(rowId, field, value) {
-  console.log(rowId,'ThemeBluePrint', field,'ThemeBluePrint', value);
-  const data={};
-  data[value]=field;
-  this.state.Placement.push(data);
-  console.log(data,'data',)
-}
-
-filterobj = (obj) =>{
-  var options = {description:'true',type:'true',xyz:'false'}
-  var res = []
-  Object.keys(options).map((key,i) => {
-    if(options[key]==='true')
+     getOpen ()
     {
-   res.push({ name:key,value:0,id:i});
+     return this.state.open;
     }
-  } 
-  )
-  return res;
+
+
+
+
+onFieldChange(rowId,field,optionId) {
+
+  
+  let newplacement=this.state.Placement;
+  let options=this.state.options;
+
+ 
+  let indexP=newplacement.findIndex(x => x.id === rowId)
+  let indexO=options.findIndex(x => x.id === optionId)
+
+  console.log(indexP,indexO)
+
+  // if(newplacement[indexP].placementName!=null)
+  // {
+  //   options.push({id:newplacement[indexP].placementId,name:newplacement[indexP].placementName})
+  //   console.log('not null')
+  // }
+
+  newplacement[indexP].placementName=options[indexO].name;
+  newplacement[indexP].placementId=options[indexO].id;
+
+  // options.splice( options[indexO], 1 );
+
+  console.log(newplacement)
+
+  this.setState({Placement:newplacement})
+
+
+
 }
 
-initColumns() {
+onFocus() {
+  alert('aaa')
+}
+
+
+
+initColumns= () => {
   
   return [
-    {
+    { 
       title: () => 'Name', 
       value: (row, { focus }) => {
           return (
-              <Input  
-                placeholder='Enter Name'
-                value={row.name}
-                focus={focus}
-                style={{fontWeight:'bold'}}
-              />
+            <span style={{fontWeight:'bold'}}>
+              {row.name}
+            </span>
+             
           );
       }
     }, {
@@ -106,33 +180,30 @@ initColumns() {
       title: () => 'Extracted Data',
       value: (rows, { focus }) => {
           return (
-              <Input  
-                value={rows.ExtractedData}
-                isOpen={focus}
-                style={{color:'gray'}}
-
-              />
+            <span style={{fontWeight:'bold'}}>
+            {rows.ExtractedData}
+            </span>
           );
       }
     },
-    {
+    { 
       id: 'SelectData',
       title: () => 'Placed Data',
-      value: (rows, { focus }) => {
-        console.log(rows.selectData,'rows.SelectData')
+      value: ( rows, { focus } ) => {
           return (
-              <Select  
-              items={  this.state.docs }
-              // items={
-              //   filter
-              // }
-              selectedId={rows.id}
-                isOpen={focus}
-                style={{color:'gray'}}
-             
-                //  onChange={this.onFieldChange.bind( this,rows.id,filter[rows.id-1],rows.name)}
 
-              />
+          
+            <Select
+            
+            style={{ width: '10%' ,position:'absolute',overflow:'scroll'}}
+           
+            isOpen={focus}
+            
+            items={this.state.options}
+            selectedId={this.state.Placement.find(x=>x.id===rows.id).placementId}
+            
+            onChange={this.onFieldChange.bind(this, rows.id, 'positionId')} />
+            
           );
       }
     }
@@ -141,10 +212,13 @@ initColumns() {
 
 
 
-// /////
 
-Next=()=>{
-  this.props.next()
+
+Next=(e)=>
+{
+  e.preventDefault();
+  this.props.handleNext(this.state.Placement,this.state.CNo);
+  this.props.next();
 }
 
 GetOptions(Noc)
@@ -153,7 +227,7 @@ GetOptions(Noc)
   let items=[];
   for (let i=0;i<Noc;i++)
   {
-  items.push( <MenuItem value={i+1}>{i+1}</MenuItem>)
+  items.push( <MenuItem key={i+1}  value={i+1}>{i+1}</MenuItem>)
   };
   return items;
 }
@@ -167,8 +241,7 @@ handleChange (event) {
 
 
     render() { 
-     console.log(this.state.Placement,'Placement')
-        const {classes}=this.props;
+     
         return ( 
         <div style={{width:'90%',marginLeft:'5%',background:'',height:'calc(100vh - 144px)'}}>
 
@@ -177,13 +250,12 @@ handleChange (event) {
 <div >
 
      <Selects
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+         
           MenuProps={MenuProps}
           value={this.state.CNo}
          onChange={this.handleChange.bind(this)}
          style={{width:'40%'}}
-         class="form-control" id="exampleFormControlSelect1"
+         className="form-control" id="exampleFormControlSelect1"
         >
            {this.GetOptions(this.state.NocFire)}
         </Selects>
@@ -196,6 +268,7 @@ handleChange (event) {
 
 <div style={{height:'45%',width:'100%',marginTop:0}}>
 
+{ this.state.Placement.length>0?
 <div  style={{width:'100%'}}>
 
 <Grid 
@@ -205,9 +278,22 @@ handleChange (event) {
   blurCurrentFocus={this.state.blurCurrentFocus}
   />
  
-  </div>
+  </div>:
+
+<div style={{background:'',position: 'fixed',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>
+<Loader
+type="RevolvingDot"
+color="#00BFFF"
+height={100}
+width={100}
+timeout={3000} //3 secs
+/>
+
+</div>}
 
 </div>
+
+    
    
           <div style={{background:'',height:'10%',width:'100%',paddingTop:'5px'}}>
 
@@ -217,11 +303,20 @@ onClick={this.props.back}
 >
 back
 </Button>
+
+
+
 <Button type="submit"
-variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'10%',borderRadius:20,marginTop:0}}
+variant="contained" color="primary"  size="large"  style={{float:'right',height:40,width:'25%',borderRadius:20,marginTop:0}}
 onClick={this.Next.bind(this)}
 >
-next
+Create Carousel
+</Button>
+
+<Button 
+variant="contained" color="primary"  size="large"  style={{float:'right',marginRight:'10px',height:40,width:'10%',borderRadius:20,marginTop:0}}
+>
+Preview
 </Button>
 </div>
         
