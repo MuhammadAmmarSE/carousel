@@ -7,6 +7,8 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import '../../Stepper.css';
 
+
+
 class CreateCarousel extends Component {
 
   constructor(props){
@@ -50,7 +52,7 @@ Next=()=>{
      noValidate autoComplete="off" onSubmit={this.submit.bind(this)}>
     <CardContent>
       <TextField
-        id="outlined-name"
+       
         label="Carousel Name"
         name="carousalName" onChange={this.handleChange.bind(this)}
         margin="normal"
@@ -61,7 +63,7 @@ Next=()=>{
        <CardContent>
          <TextField
          style={{width:'40%'}}
-        id="outlined-name"
+        
         label="Blog URL"
         name="url" onChange={this.handleChange.bind(this)}
         margin="normal"

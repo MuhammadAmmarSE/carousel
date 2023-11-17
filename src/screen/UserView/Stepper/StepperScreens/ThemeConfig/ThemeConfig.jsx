@@ -218,7 +218,6 @@ Next=(e)=>
 {
   e.preventDefault();
   this.props.handleNext(this.state.Placement,this.state.CNo);
-  this.props.next();
 }
 
 GetOptions(Noc)

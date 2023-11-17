@@ -3,6 +3,7 @@ import React , {Component} from 'react';
 import Button from '@material-ui/core/Button';
 
 import Theme1 from './Theme1/Theme1'
+import Theme3 from './Theme3/Theme3'
 import './EmbedWebpage.css'
 
 
@@ -26,8 +27,12 @@ class EmbedWebpage extends Component {
      getTheme = () =>
      {
          if(this.props.Theme==1)
-         {
-             return <Theme1 Noc={this.props.Noc}/>
+         {console.log(this.props.Noc);
+            return <Theme1 Noc={this.props.Noc}/>
+         }
+         else if(this.props.Theme==3)
+         {  console.log(this.props.Noc);
+            return <Theme3 Noc={this.props.Noc}/>
          }
          else return <div></div>
      }

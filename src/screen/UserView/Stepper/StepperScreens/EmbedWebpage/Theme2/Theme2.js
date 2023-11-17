@@ -20,41 +20,43 @@ class Theme2 extends Component{
 
     getHtml(Noc)
     {  console.log(Noc)
-        let string=`<div class="my-body"> `
-        for (let i=1;i<=Noc;i++)
-        {  
-            let number="";
-            if(i==1)
-            {
-                number="";
-            }
-            else number='card'+i;
+        let string=
+`<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<div id="myCarousel" style="width:50%; min-width:300px" class="carousel slide" data-ride="carousel">
+    {/* <!-- Indicators --> */}
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>`
+      for (let i=2;i<=Noc;i++)
+      {  
+        string= string + `<li data-target="#myCarousel" data-slide-to="${i}"></li>`
+      }
+      string=string+
+`</ol>
 
-                 string= string + `<div class="card">
-                                        <div class="card-image ${number}"></div>
-                                        <div class="card-text  ${number}">
-                                            <span class="date">1 week ago</span>
-                                            <h2>Post Two</h2>
-                                            <p>Adipisicing elit. Ducimus, repudiandae corrupti amet temporibus omnis provident illum maxime quod. Lorem ipsum dolor</p>
-                                        </div>
-                                        <div class="card-stats ${number}">
-                                            <div class="stat">
-                                                <div class="value">7<sup>m</sup></div>
-                                                <div class="type">read</div>
-                                            </div>
-                                            <div class="stat border">
-                                                <div class="value">7152</div>
-                                                <div class="type">views</div>
-                                            </div>
-                                            <div class="stat">
-                                                <div class="value">21</div>
-                                                <div class="type">comments</div>
-                                            </div>
-                                        </div>
-                                    </div>
-           `
+{/* <!-- Wrapper for slides --> */}
+<div class="carousel-inner">
+<div class="item active">
+    <img src={la} alt="Los Angeles" style="width:100%" />
+</div>`
+
+        for (let i=2;i<=Noc;i++)
+        {  
+        string= string + `<div class="item">  <img src={chicago} alt="Chicago" style={{width:'100%'}}/> </div>`
         }
-        string = string + ' </div>'
+
+
+        string = string + `     </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>`
         return string
     }
 

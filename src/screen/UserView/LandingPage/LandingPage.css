@@ -1,5 +1,8 @@
 .LandingPageMainDiv
-{
+
+{   
+    width:calc(100vw - 240px);
+    height:calc(100vh - 160px);
     display: flex;
     justify-content: center;
     align-items: center;

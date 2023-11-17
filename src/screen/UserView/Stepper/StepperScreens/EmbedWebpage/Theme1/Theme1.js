@@ -193,25 +193,25 @@ render(){
             {console.log(this.state.html)}
             <SnippetDialog open={this.state.snippetDialogOpen} handleClose={this.handleClose} html={this.state.html} css={this.state.css} />
             <div className="my-body">
-                <div class="card">
-                    <div class="card-image "></div>
-                    <div class="card-text  ">
-                        <span class="date">1 week ago</span>
+                <div className="card">
+                    <div className="card-image "></div>
+                    <div className="card-text  ">
+                        <span className="date">1 week ago</span>
                         <h2>Example Card</h2>
                         <p>This is the description of Theme 1. The Product description goes here.</p>
                     </div>
-                    <div class="card-stats ">
-                        <div class="stat">
-                            <div class="value">7<sup>m</sup></div>
-                            <div class="type">read</div>
+                    <div className="card-stats ">
+                        <div className="stat">
+                            <div className="value">7<sup>m</sup></div>
+                            <div className="type">read</div>
                         </div>
-                        <div class="stat border">
-                            <div class="value">7152</div>
-                            <div class="type">views</div>
+                        <div className="stat border">
+                            <div className="value">7152</div>
+                            <div className="type">views</div>
                         </div>
-                        <div class="stat">
-                            <div class="value">21</div>
-                            <div class="type">comments</div>
+                        <div className="stat">
+                            <div className="value">21</div>
+                            <div className="type">comments</div>
                         </div>
                     </div>
                 </div>

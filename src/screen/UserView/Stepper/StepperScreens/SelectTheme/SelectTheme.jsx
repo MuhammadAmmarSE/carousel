@@ -105,7 +105,7 @@ ControlledCarousel() {
       <Carousel.Item>
       <img
             className="d-block w-100"
-            src={require("../../../../../Assets/SliderThree.jpg")}
+            src={require("../../../../../Assets/theme3.PNG")}
             alt="First slide"
             style={{width:'100%',height:400}}
           />

@@ -15,74 +15,17 @@ import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import "./LandingPage.css"
 
-const drawerWidth = 240;
+import Noimage from '../../../Assets/no-image.png';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    
-    
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme
-      .transitions
-      .create([
-        'margin', 'width'
-      ], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      })
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  hide: {
-    display: 'none'
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme
-      .transitions
-      .create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
-    marginLeft: -drawerWidth
-  },
-  contentShift: {
-    transition: theme
-      .transitions
-      .create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      }),
-    marginLeft: 0
+    marginLeft:'240px',
+    width:'calc(100vw - 260px)'
   },
   card: {
     width: 320,
-    marginTop: 100,
-    marginLeft: '250px',
-    marginRight: '-200px'
+    marginTop: 50,
+    marginLeft:'10px'
   },
   media: {
     height: 140
@@ -111,24 +54,86 @@ class LandingPage extends Component {
       .collection("Themes")
       .get()
       .then((querySnapshot) => {
-        var data = []
+        
         if (querySnapshot.docs.length > 0) {
+          
+          
           querySnapshot.forEach((doc) => {
-            let newobject = {
-              'Name': doc
-                .data()
-                .Name,
-              'Thumbnail': doc
-                .data()
-                .Thumbnail,
-              'Noc': doc
-                .data()
-                .Noc
+               let image=null;
+               let url=null;
+               let ref="Theme"+doc.data().ThemeBluePrint+"Thumbnails";
+
+               
+           
+              const images = firebase.storage().ref().child(ref);
+              image = images.child(doc.data().Thumbnail);
+              image.getDownloadURL().then(onResolve, onReject)
+              let global=this;
+
+              function onResolve(foundURL) {
+                let newobject = {
+                  'Name': doc
+                    .data()
+                    .Name,
+                  'Thumbnail':  foundURL,
+                  'Noc': doc
+                    .data()
+                    .Noc
+                }
+                let data=global.state.mydata;
+                data.push(newobject)
+                global.setState({mydata: data, Response: true})
+
+
+
+              
             }
-            data.push(newobject)
+            
+            function onReject(error) {
+              let newobject = {
+                'Name': doc
+                  .data()
+                  .Name,
+                'Thumbnail':  Noimage,
+                'Noc': doc
+                  .data()
+                  .Noc
+              }
+              let data=global.state.mydata;
+              data.push(newobject)
+              global.setState({mydata: data, Response: true})
+
+
+
+            
+            }
+
+
+
+
+              // (url) => { 
+              //   let newobject = {
+              //     'Name': doc
+              //       .data()
+              //       .Name,
+              //     'Thumbnail':  url,
+              //     'Noc': doc
+              //       .data()
+              //       .Noc
+              //   }
+              //   let data=this.state.mydata;
+              //   data.push(newobject)
+              //   this.setState({mydata: data, Response: true})
+
+
+
+              // }
+              
+            
+           
           });
         }
-        this.setState({mydata: data, Response: true})
+        else this.setState({Response: true})
       });
 
   }
@@ -136,7 +141,7 @@ class LandingPage extends Component {
     this
       .props
       .history
-      .push('/Carousel');
+      .push('./Carousel');
   }
   componentDidMount() {
     if (this.props.getUser) {
@@ -144,6 +149,7 @@ class LandingPage extends Component {
     }
 
   }
+  
 
   componentDidUpdate(prevProps) {
     if (this.props.getUser !== prevProps.getUser && this.props.getUser !== null) {
@@ -159,17 +165,9 @@ class LandingPage extends Component {
       <div className={classes.root}>
 
         {this.state.Response===true?
-          <div style={{
-            flexDirection: 'row'
-          }}>
-
-            {this.state.mydata.length === 0
-              ?   <div
-                  className="LandingPageMainDiv"
-                  >
-                  <h3 style={{
-                    marginLeft: '60px'
-                  }}>No Carousel Yet !</h3>
+          this.state.mydata.length === 0?   
+            <div className="LandingPageMainDiv">
+              <h3>No Carousel Yet !</h3>
                   <Button
                     variant="contained"
                     onClick={this
@@ -178,15 +176,17 @@ class LandingPage extends Component {
                     color="primary">
                     Want To create a Carousel
                   </Button>
-                </div>
-              : <Grid container direction="row">
+              </div>
+              :
+              
+              <Grid container direction="row">
 
                 {this
                   .state
                   .mydata
                   .map((item, i) => {
 
-                    return <Card className={classes.card}>
+                    return <Card key={i} className={classes.card}>
                       <CardActionArea>
                         <CardMedia
                           className={classes.media}
@@ -220,8 +220,8 @@ class LandingPage extends Component {
                     </Card>
                   })}
               </Grid>
-  }
-          </div>:
+             
+          :
           
           <div style={{background:'',position: 'fixed',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>
           <Loader

@@ -27,9 +27,12 @@ import './Stepper.css';
 import img1 from './stepper1.png'
 import img2 from './stepper2.png'
 
+import theme3 from '../../../Assets/theme3.PNG'
+
 const theme1='https://redstapler.co/wp-content/uploads/2019/10/rpg-css-card-design-800x500.jpg'
 const theme2='https://creativetimblog.com/blog/wp-content/uploads/2015/03/Rotating-Cards-730x410.jpg'
-const theme3='https://freefrontend.com/assets/img/css-cards/CSS-Same-Height-Cards.jpg'
+
+
 
 const styles = theme => ({
     button: {
@@ -120,7 +123,12 @@ const styles = theme => ({
     };
     handleNext = () => {
 
-      if(this.state.credits==undefined)
+      if(this.state.activeStep==4)
+      {
+        this.setActiveStep(this.state.activeStep + 1);
+      }
+
+      else if(this.state.credits==undefined)
       {
          alert('Please wait')
          return;
@@ -129,37 +137,6 @@ const styles = theme => ({
       {
         alert('Please Recharge your account!')
         return;
-      }
-      else if(this.state.activeStep==3)
-      { 
-        this.setState({loader:true})
-        let global=this;
-        let db = firebase.firestore();
-        db.collection('Users').doc(this.props.user.uid).collection('Themes').add({
-          Name: this.state.Name,
-          Noc: this.state.Noc,
-          ThemeBluePrint:this.state.ThemeBluePrint,
-          Thumbnail:this.getThumbnail(),
-          Url:this.state.Url,
-          Placement:this.state.Placement,
-          MetaTags:this.state.MetaTags,
-          }).then(function(){
-        db.collection('Users').doc(global.props.user.uid).update({credits:global.state.credits-1}).then(
-          function(){
-
-
-            let data = JSON.stringify(global.props.userData)
-            data=JSON.parse(data);
-            data["credits"]=global.state.credits-1;
-            
-            global.props.setData(data);
-            global.setState({activeStep:global.state.activeStep + 1,loader:false});
-            
-          }
-        )
-        
-
-      })
       }
      
       else
@@ -191,7 +168,34 @@ const styles = theme => ({
 
     TGhandleNext= (placement,noc) =>
     {
-      this.setState({Placement:placement,Noc:noc});
+      this.setState({loader:true,Noc:noc})
+        let global=this;
+        let db = firebase.firestore();
+        db.collection('Users').doc(this.props.user.uid).collection('Themes').add({
+          Name: this.state.Name,
+          Noc: noc,
+          ThemeBluePrint:this.state.ThemeBluePrint,
+          Thumbnail:'default.jpg',
+          Url:this.state.Url,
+          Placement:placement,
+          MetaTags:this.state.MetaTags,
+          }).then(function(){
+        db.collection('Users').doc(global.props.user.uid).update({credits:global.state.credits-1}).then(
+          function(){
+
+
+            let data = JSON.stringify(global.props.userData)
+            data=JSON.parse(data);
+            data["credits"]=global.state.credits-1;
+            
+            global.props.setData(data);
+            global.setState({activeStep:global.state.activeStep + 1,loader:false});
+            
+          }
+        )
+        
+
+      })
     }
    
      getStepContent(step) {
@@ -215,13 +219,26 @@ const styles = theme => ({
       window.location.href = "/User/Carousel";
       
     }
+     handleReset = () => {
+      console.log('a')
+                this.setState({
+                  activeStep:0,
+                  Name:'',
+                  Url:'',
+                  Data:[],
+                  selectedData:[],
+                  Placement:[], ///theme ke options
+                  ThemeBluePrint:null,
+                  Noc:null,
+                  MetaTags:[],
+                  loader:false})
+                
+              };
     render(){
         const {classes}=this.props;
         const steps = getSteps();
       
-        const handleReset = () => {
-            this.setActiveStep(0);
-        };
+        
     return (
       <div style={{minHeight:'calc(100vh - 144px)',background:'#f7f8fc',width:'calc(100% - 240px)',marginLeft:'240px',}}>
         <div >
@@ -273,8 +290,7 @@ const styles = theme => ({
               <Button
                 variant="contained"
                 onClick={this
-                .CreateCarousel
-                .bind(this)}
+                .handleReset}
                 style={{display:'block',width:'300px',height:'40px'}}
                 color="primary">
                 Create Another Carousel
